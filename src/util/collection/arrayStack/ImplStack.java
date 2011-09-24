@@ -1,7 +1,7 @@
 /**
  * 
  */
-package util.collection.linkedStack;
+package util.collection.arrayStack;
 
 import util.collection.Stack;
 
@@ -9,22 +9,17 @@ import util.collection.Stack;
  * @author Christian
  *
  */
-public class LinkedStack extends Stack
+public class ImplStack extends Stack
 {
 
-    //
-    private int size ;
+	/**
+	 * 
+	 */
+	public ImplStack()
+	{
+		// TODO Auto-generated constructor stub
+	}
 
-    //
-    private Node head ;
-
-	//
-    private Node getNode (int position) 
-    {
-
-    }
-
-	
 	/* (non-Javadoc)
 	 * @see util.collection.Stack#clear()
 	 */
