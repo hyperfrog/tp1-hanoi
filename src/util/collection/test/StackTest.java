@@ -37,20 +37,24 @@ public class StackTest
 		// Cas valide 1 : On empile un objet non null sur une pile vide.
 		Assert.assertEquals(obj1, stk.push(obj1));
 		Assert.assertEquals(obj1, stk.peek());
+		Assert.assertEquals(1, stk.size());
 
 		// Cas valide 2 : On empile un objet non null sur une pile non vide.
 		Assert.assertEquals(obj2, stk.push(obj2));
 		Assert.assertEquals(obj2, stk.peek());
+		Assert.assertEquals(2, stk.size());
 
 		// Cas invalide 1 : On empile un objet null sur une pile vide.
 		stk.clear();
 		Assert.assertNull(stk.push(null));
 		Assert.assertNull(stk.peek());
+		Assert.assertEquals(0, stk.size());
 
 		// Cas invalide 2 : On empile un objet null sur une pile non vide.
 		stk.push(obj1);
 		Assert.assertNull(stk.push(null));
 		Assert.assertEquals(obj1, stk.peek());
+		Assert.assertEquals(1, stk.size());
 	}
 
 	@Test
@@ -63,14 +67,17 @@ public class StackTest
 		stk.push(obj1); // 2
 		stk.push(obj2); // 1
 
-		// Cas valide 1 : La pile contient plusieurs objets.
+		// Cas valide 1 : La pile contient deux objets.
 		Assert.assertEquals(obj2, stk.pop());
+		Assert.assertEquals(1, stk.size());
 
 		// Cas valide 2 : La pile contient un objet.
 		Assert.assertEquals(obj1, stk.pop());
+		Assert.assertEquals(0, stk.size());
 
 		// Cas invalide : La pile est vide.
 		Assert.assertNull(stk.pop());
+		Assert.assertEquals(0, stk.size());
 
 	}
 
@@ -82,14 +89,25 @@ public class StackTest
 		// Cas 1 : Aucun élément dans la pile
 		Assert.assertEquals(0, stk.size());
 
-		// Cas 2 : 1 élément dans la pile
+		// Cas 2 : Ajout d'un élément (pile vide)
 		stk.push(new Object());
 		Assert.assertEquals(1, stk.size());
 
-		// Cas 3 : 2 éléments dans la pile
+		// Cas 3 : Ajout d'un élément (pile contient 1 élément)
 		stk.push(new Object());
 		Assert.assertEquals(2, stk.size());
+		
+		// Cas 4 : suppression d'un élément (pile contient 2 éléments)
+		stk.pop();
+		Assert.assertEquals(1, stk.size());
 
+		// Cas 5 : suppression d'un élément (pile contient 1 élément)
+		stk.pop();
+		Assert.assertEquals(0, stk.size());
+
+		// Cas 5 : suppression d'un élément (pile vide)
+		stk.pop();
+		Assert.assertEquals(0, stk.size());
 	}
 
 	@Test
@@ -184,4 +202,20 @@ public class StackTest
 		Assert.assertNull(stk.get(4));
 	}
 
+	@Test
+	public void testToString()
+	{
+		Stack stk = new ImplStack();
+		
+		// Cas 1 : La pile est vide.
+		Assert.assertEquals("[]", stk.toString());
+		
+		// Cas 2 : La pile contient un élément
+		stk.push(new String("premier"));
+		Assert.assertEquals("[premier]", stk.toString());
+		
+		// Cas 2 : La pile contient deux éléments
+		stk.push(new String("deuxième"));
+		Assert.assertEquals("[deuxième, premier]", stk.toString());
+	}
 }

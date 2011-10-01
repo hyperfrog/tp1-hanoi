@@ -6,7 +6,13 @@ package util.collection.linkedStack;
 import util.collection.Stack;
 
 /**
- * @author Christian
+ * Implémentation de la classe Stack par une liste chaînée.
+ * 
+ * Il s'agit d'une pile d'objets de type «dernier entré, premier sorti) (LIFO) 
+ * Elle n'accpete pas d'éléments marqués «null».
+ * 
+ * @author Christian Lesage
+ * @author Alexandre Tremblay
  * 
  */
 public class ImplStack extends Stack
@@ -19,7 +25,7 @@ public class ImplStack extends Stack
 	private Node head;
 
 	/**
-	 * Construit une pile.
+	 * Construit une pile vide.
 	 */
 	public ImplStack()
 	{
@@ -27,6 +33,7 @@ public class ImplStack extends Stack
 	}
 	
     /* (non-Javadoc)
+     * 
 	 * @see util.collection.Stack#clear()
 	 */
 	@Override
@@ -36,7 +43,8 @@ public class ImplStack extends Stack
 		this.size = 0;
 	}
 
-	//
+	// Retourne le noeud à la position spécifiée ou null si la position n'est pas valide
+	// Pour être valide, la position doit être comprise dans l'intervalle [1, size] 
 	private Node getNode(int position)
 	{
 		Node n = null;
@@ -54,6 +62,7 @@ public class ImplStack extends Stack
 	}
 
 	/* (non-Javadoc)
+	 * 
 	 * @see util.collection.Stack#get(int)
 	 */
 	@Override
@@ -71,6 +80,7 @@ public class ImplStack extends Stack
 	}
 
     /* (non-Javadoc)
+     * 
 	 * @see util.collection.Stack#isEmpty()
 	 */
 	@Override
@@ -79,8 +89,8 @@ public class ImplStack extends Stack
 		return this.size == 0;
 	}
 
-	/**
-	 * 
+    /* (non-Javadoc)
+     * 
 	 * @see util.collection.Stack#peek()
 	 */
 	@Override
@@ -90,6 +100,7 @@ public class ImplStack extends Stack
 	}
 
     /* (non-Javadoc)
+     * 
 	 * @see util.collection.Stack#pop()
 	 */
 	@Override
@@ -108,6 +119,7 @@ public class ImplStack extends Stack
 	}
 
     /* (non-Javadoc)
+     * 
 	 * @see util.collection.Stack#push(java.lang.Object)
 	 */
 	@Override
@@ -130,8 +142,7 @@ public class ImplStack extends Stack
 		return obj;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/*(non-Javadoc)
 	 * 
 	 * @see util.collection.Stack#search(java.lang.Object)
 	 */
@@ -139,11 +150,13 @@ public class ImplStack extends Stack
 	public int search(Object obj)
 	{
 		int position = Stack.NULL_POSITION;
-
-		if (obj != null)
+		
+		if (obj != null) 
 		{
+			// Scrute chacun des éléments de la pile en commençant par le dessus
 			for (int i = 1; i <= this.size; i++)
 			{
+				// Si l'objet recherché est égal à celui à la position i 
 				if (obj.equals(this.get(i)))
 				{
 					position = i;
@@ -154,8 +167,8 @@ public class ImplStack extends Stack
 		return position;
 	}
 
-    /* 
-     * (non-Javadoc)
+    /* (non-Javadoc)
+     * 
 	 * @see util.collection.Stack#size()
 	 */
 	@Override
@@ -164,8 +177,7 @@ public class ImplStack extends Stack
 		return this.size;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/* (non-Javadoc)
 	 * 
 	 * @see util.collection.Stack#toString()
 	 */
@@ -174,7 +186,7 @@ public class ImplStack extends Stack
 	{
 		Node n = head;
 		
-		String s = "[";
+		String s = new String();
 
 		for (int i = 1; i <= this.size; i++)
 		{
@@ -186,9 +198,7 @@ public class ImplStack extends Stack
 			n = n.getNext();
 		}
 
-		s += "]";
-
-		return s;
+		return "[" + s + "]";
 	}
 
 }
