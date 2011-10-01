@@ -4,25 +4,28 @@ package util.collection;
  * The Stack class is an abstract class used to implement a last-in-first-out
  * (LIFO) stack of objects. This collection does not permit null elements.
  * 
- * @author
+ * @author Christian Lesage
+ * @author Alexandre Tremblay
  */
 
 public abstract class Stack
 {
 
+	public static final int NULL_POSITION = -1;
+	
+	
 	/**
-	 * Pushes an element onto the top of this stack. Don't work is the specified
+	 * Pushes an element onto the top of this stack. Doesn't work if the specified
 	 * element is null.
 	 * 
-	 * @param object
-	 *            the element to be pushed onto this stack.
+	 * @param obj the element to be pushed onto this stack.
 	 * @return the object argument if pushed, null otherwise.
 	 * 
 	 */
 	public abstract Object push(Object obj);
 
 	/**
-	 * Removes the element at the top of this stack. don't work if this stack is
+	 * Removes the element at the top of this stack. Doesn't work if this stack is
 	 * empty --> return null
 	 * 
 	 * @return the element at the top of this stack, null otherwise.
@@ -59,14 +62,13 @@ public abstract class Stack
 
 	/**
 	 * Returns the 1-based position where an object is on this stack. If the
-	 * object <tt>o</tt> occurs as an item in this stack, this method returns
+	 * object <tt>obj</tt> occurs as an item in this stack, this method returns
 	 * the distance from the top of the stack of the occurrence nearest the top
 	 * of the stack; the topmost item on the stack is considered to be at
 	 * distance <tt>1</tt>. The <tt>equals</tt> method is used to compare
-	 * <tt>o</tt> to the items in this stack.
+	 * <tt>obj</tt> to the items in this stack.
 	 * 
-	 * @param o
-	 *            the desired object.
+	 * @param obj the desired object.
 	 * @return the 1-based position from the top of the stack where the object
 	 *         is located; the return value <code>-1</code> indicates that the
 	 *         object is not on the stack.
@@ -86,6 +88,10 @@ public abstract class Stack
 	 */
 	public abstract Object get(int position);
 
+	/**
+	 * 	Retourne une représentation textuelle de la pile.
+	 *  @return  représentation textuelle de la pile
+	 */
 	public abstract String toString();
 
 }

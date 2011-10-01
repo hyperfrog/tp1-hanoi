@@ -20,7 +20,7 @@ public class ImplStack extends Stack
 		// TODO Auto-generated constructor stub
 	}
 
-	/* (non-Javadoc)
+	/** 
 	 * @see util.collection.Stack#clear()
 	 */
 	@Override
@@ -30,7 +30,7 @@ public class ImplStack extends Stack
 
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see util.collection.Stack#get(int)
 	 */
 	@Override
@@ -40,7 +40,7 @@ public class ImplStack extends Stack
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see util.collection.Stack#isEmpty()
 	 */
 	@Override
@@ -50,7 +50,7 @@ public class ImplStack extends Stack
 		return false;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see util.collection.Stack#peek()
 	 */
 	@Override
@@ -60,7 +60,7 @@ public class ImplStack extends Stack
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see util.collection.Stack#pop()
 	 */
 	@Override
@@ -70,7 +70,7 @@ public class ImplStack extends Stack
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see util.collection.Stack#push(java.lang.Object)
 	 */
 	@Override
@@ -80,7 +80,7 @@ public class ImplStack extends Stack
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see util.collection.Stack#search(java.lang.Object)
 	 */
 	@Override
@@ -90,7 +90,7 @@ public class ImplStack extends Stack
 		return 0;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see util.collection.Stack#size()
 	 */
 	@Override
@@ -100,7 +100,7 @@ public class ImplStack extends Stack
 		return 0;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see util.collection.Stack#toString()
 	 */
 	@Override

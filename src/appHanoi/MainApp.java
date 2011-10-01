@@ -1,5 +1,7 @@
 package appHanoi;
 
+import appHanoi.form.AppFrame;
+
 public class MainApp
 {
 
@@ -8,7 +10,8 @@ public class MainApp
 	 */
 	public static void main(String[] args)
 	{
-		// TODO Auto-generated method stub
+		AppFrame appFrame = new AppFrame();
+		appFrame.setVisible(true);
 
 	}
 
