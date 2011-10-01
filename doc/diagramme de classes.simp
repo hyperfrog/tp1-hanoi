@@ -28,6 +28,7 @@
       <type id="Object[]" name="Object[]" description="" />
       <type id="Tower" name="Tower" description="" />
       <type id="GameBoard" name="GameBoard" description="" />
+      <type id="Game" name="Game" description="" />
     </custom-types>
   </types>
   <items>
@@ -357,8 +358,24 @@
       <associated-diagrams />
       <owned-items />
       <style class="default" />
-      <attributes />
-      <operations />
+      <attributes>
+        <attribute id="" name="currentGame" type="Game" type-id="Game" visibility="private" abstract="false" virtual="false" default-value="">
+          <stereotypes />
+          <documentation />
+        </attribute>
+      </attributes>
+      <operations>
+        <operation id="" name="moveDisk" type="" type-id="" visibility="public" abstract="false" virtual="false" static="false">
+          <parameters />
+          <stereotypes />
+          <documentation />
+        </operation>
+        <operation id="" name="replay" type="" type-id="" visibility="public" abstract="false" virtual="false" static="false">
+          <parameters />
+          <stereotypes />
+          <documentation />
+        </operation>
+      </operations>
       <template-parameters />
     </item>
     <item id="di237449427409736077" cid="C007" type="class" name="AppFrame" style-class="" is-abstract="false">
@@ -368,7 +385,12 @@
       <associated-diagrams />
       <owned-items />
       <style class="default" />
-      <attributes />
+      <attributes>
+        <attribute id="" name="gameBoard" type="GameBoard" type-id="GameBoard" visibility="private" abstract="false" virtual="false" default-value="">
+          <stereotypes />
+          <documentation />
+        </attribute>
+      </attributes>
       <operations />
       <template-parameters />
     </item>
@@ -389,7 +411,17 @@
           <documentation />
         </attribute>
       </attributes>
-      <operations />
+      <operations>
+        <operation id="" name="Disk" type="" type-id="" visibility="public" abstract="false" virtual="false" static="false">
+          <parameters>
+            <parameter id="" name="diameter" type="int" type-id="int" default-value="">
+              <documentation />
+            </parameter>
+          </parameters>
+          <stereotypes />
+          <documentation />
+        </operation>
+      </operations>
       <template-parameters />
     </item>
     <item id="di883961475482793801" cid="C009" type="class" name="Tower" style-class="" is-abstract="false">
@@ -441,6 +473,11 @@
         </attribute>
       </attributes>
       <operations>
+        <operation id="" name="Game" type="" type-id="" visibility="public" abstract="false" virtual="false" static="false">
+          <parameters />
+          <stereotypes />
+          <documentation />
+        </operation>
         <operation id="" name="moveDisk" type="boolean" type-id="boolean" visibility="public" abstract="false" virtual="false" static="false">
           <parameters>
             <parameter id="" name="fromTower" type="int" type-id="int" default-value="">
@@ -456,6 +493,15 @@
         <operation id="" name="drawTowers" type="" type-id="" visibility="public" abstract="false" virtual="false" static="false">
           <parameters>
             <parameter id="" name="gameBoard" type="GameBoard" type-id="GameBoard" default-value="">
+              <documentation />
+            </parameter>
+          </parameters>
+          <stereotypes />
+          <documentation />
+        </operation>
+        <operation id="" name="replay" type="" type-id="" visibility="public" abstract="false" virtual="false" static="false">
+          <parameters>
+            <parameter id="" name="nbDisks" type="int" type-id="int" default-value="">
               <documentation />
             </parameter>
           </parameters>
@@ -515,6 +561,18 @@
         <end-role id="" name="" multiplicity="0..64" navigability="yes" association-type="association" visibility="private" />
       </relation>
     </item>
+    <item id="di168743522340463089" cid="REL002" type="relationship" name="" style-class="" is-abstract="false">
+      <stereotypes />
+      <tagged-values />
+      <documentation />
+      <associated-diagrams />
+      <owned-items />
+      <style class="default" />
+      <relation from="di183625964853496055" to="di975531004501205257">
+        <start-role id="" name="" multiplicity="" navigability="" association-type="association" visibility="private" />
+        <end-role id="" name="" multiplicity="" navigability="yes" association-type="association" visibility="private" />
+      </relation>
+    </item>
   </items>
   <models>
     <model id="p596569284923989752" name="Model 1" type="model" namespace="">
@@ -530,7 +588,7 @@
           </authors>
           <description />
           <creation-date>09/23/2011 09:24:32</creation-date>
-          <change-date>09/23/2011 10:29:01</change-date>
+          <change-date>09/30/2011 09:41:35</change-date>
           <revision-count>0</revision-count>
           <version />
         </meta>
@@ -540,10 +598,10 @@
 </documentation>
         <layer name="Default" visible="true" enabled="true" locked="false">
           <item id="di855803818871989209" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="1473" y1="265" x2="1599" y2="106">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="1474" y1="268" x2="1601" y2="106">
               <points>
-                <point x="1473" y="265" />
-                <point x="1599" y="106" />
+                <point x="1474" y="268" />
+                <point x="1601" y="106" />
               </points>
             </layout>
             <relation from="di767206065361629935" to="di688138813942401208" />
@@ -578,7 +636,7 @@
             <layout ax="1298" ay="209" awidth="229" aheight="249" x="1298" y="209" width="229" height="249" />
           </item>
           <item id="di767206065361629935" container="di565324033484660392" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="1330" ay="265" awidth="150" aheight="170" x="1457" y="278" width="0" height="0" />
+            <layout ax="1333" ay="268" awidth="150" aheight="170" x="1333" y="268" width="0" height="0" />
             <class />
           </item>
           <item id="di699161422538403915" container="di897768975496410271" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
@@ -599,18 +657,18 @@
             <layout ax="547" ay="-49" awidth="625" aheight="521" x="532" y="-155" width="625" height="521" />
           </item>
           <item id="di346211912203185711" container="di365485101325211857" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="90" ay="-40" awidth="168" aheight="137" x="75" y="-146" width="168" height="137" />
+            <layout ax="95" ay="16" awidth="168" aheight="137" x="95" y="16" width="168" height="137" />
             <class />
           </item>
           <item id="di711628313583651250" container="di365485101325211857" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="94" ay="133" awidth="395" aheight="259" x="79" y="27" width="395" height="259" />
+            <layout ax="94" ay="194" awidth="395" aheight="259" x="94" y="194" width="395" height="259" />
           </item>
           <item id="di183625964853496055" container="di711628313583651250" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="116" ay="185" awidth="158" aheight="157" x="104" y="156" width="158" height="157" />
+            <layout ax="304" ay="260" awidth="158" aheight="157" x="304" y="260" width="158" height="157" />
             <class />
           </item>
           <item id="di237449427409736077" container="di711628313583651250" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="304" ay="188" awidth="150" aheight="155" x="685" y="-72" width="0" height="155" />
+            <layout ax="110" ay="263" awidth="171" aheight="155" x="110" y="202" width="171" height="155" />
             <class />
           </item>
           <item id="di140578570167052464" container="di925040645232202115" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
@@ -622,14 +680,14 @@
             <class />
           </item>
           <item id="di975531004501205257" container="di925040645232202115" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="564" ay="235" awidth="303" aheight="212" x="538" y="140" width="303" height="212" />
+            <layout ax="564" ay="235" awidth="303" aheight="212" x="564" y="235" width="303" height="212" />
             <class />
           </item>
           <item id="di620392031952072128" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="1149" y1="342" x2="1330" y2="348">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="1149" y1="343" x2="1333" y2="350">
               <points>
-                <point x="1149" y="342" />
-                <point x="1330" y="348" />
+                <point x="1149" y="343" />
+                <point x="1333" y="350" />
               </points>
             </layout>
             <relation from="di883961475482793801" to="di767206065361629935" />
@@ -652,6 +710,16 @@
               </points>
             </layout>
             <relation from="di975531004501205257" to="di883961475482793801" />
+            <role-positions start-role="25,15" end-role="25,15" start-multiplicity="25,-15" end-multiplicity="25,-15" />
+          </item>
+          <item id="di168743522340463089" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="462" y1="339" x2="564" y2="340">
+              <points>
+                <point x="462" y="339" />
+                <point x="564" y="340" />
+              </points>
+            </layout>
+            <relation from="di183625964853496055" to="di975531004501205257" />
             <role-positions start-role="25,15" end-role="25,15" start-multiplicity="25,-15" end-multiplicity="25,-15" />
           </item>
         </layer>
