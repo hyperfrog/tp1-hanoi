@@ -74,7 +74,7 @@ public class ImplStack extends Stack
 		
 		for (int i = 0; i < size; i++)
 		{
-			newTable[i] = table[i];
+			newTable[i] = this.table[i];
 		}
 		
 		this.table = newTable;
@@ -122,9 +122,9 @@ public class ImplStack extends Stack
 		if (obj != null)
 		{
 			//Si le tableau est plein, on redimensionne
-			if (isFull())
+			if (this.isFull())
 			{
-				resize();
+				this.resize();
 			}
 			
 			//Ajoute l'élément au tableau
@@ -143,19 +143,19 @@ public class ImplStack extends Stack
 	{
 		int pos = Stack.NULL_POSITION;
         
-        if (obj != null) 
+    if (obj != null) 
+    {
+      // Vérifie chacun des éléments de la pile.
+      for (int i = 0; i < this.size; i++)
+      {
+        // Si l'objet recherché est égal à celui courant en i
+        if (obj.equals(this.get(i)))
         {
-                // Vérifie chacun des éléments de la pile.
-                for (int i = 0; i < this.size; i++)
-                {
-                        // Si l'objet recherché est égal à celui courant en i
-                        if (obj.equals(this.get(i)))
-                        {
-                                pos = i;
-                                break;
-                        }
-                }
+          pos = i;
+          break;
         }
+      }
+    }
         
         return pos;
 	}
@@ -177,16 +177,16 @@ public class ImplStack extends Stack
 	{
 		String s = new String();
 
-        for (int i = 1; i <= this.size; i++)
-        {
-                s += table[i].toString();
-                if (i <= size - 1)
-                {
-                        s += ", ";
-                }
-        }
+    for (int i = 1; i <= this.size; i++)
+    {
+      s += this.table[i].toString();
+      if (i <= size - 1)
+      {
+        s += ", ";
+      }
+    }
 
-        return "[" + s + "]";
+    return "[" + s + "]";
 	}
 
 }
