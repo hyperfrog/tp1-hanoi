@@ -153,15 +153,18 @@ public class ImplStack extends Stack
 		
 		if (obj != null) 
 		{
+			Node n = this.head;
+			
 			// Scrute chacun des éléments de la pile en commençant par le dessus
-			for (int i = 1; i <= this.size; i++)
+			for (int i = 1; i <= this.size && n != null; i++)
 			{
 				// Si l'objet recherché est égal à celui à la position i 
-				if (obj.equals(this.get(i)))
+				if (obj.equals(n.getValue()))
 				{
 					position = i;
 					break;
 				}
+				n = n.getNext();
 			}
 		}
 		return position;
