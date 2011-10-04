@@ -2,7 +2,7 @@ package util.collection.test;
 
 import org.junit.Test;
 import org.junit.Assert;
-import util.collection.linkedStack.ImplStack;
+import util.collection.arrayStack.ImplStack;
 import util.collection.Stack;
 
 /**
@@ -191,7 +191,7 @@ public class StackTest
 
 		// Cas limite 1 : Position == Size
 		Assert.assertEquals(obj1, stk.get(3));
-
+		
 		// Cas limite 2 : Position == 1
 		Assert.assertEquals(obj3, stk.get(1));
 

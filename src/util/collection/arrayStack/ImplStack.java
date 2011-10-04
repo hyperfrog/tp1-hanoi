@@ -49,9 +49,9 @@ public class ImplStack extends Stack
 	{
 		Object o = null;
 		
-		if (position >= 0 && position <= this.size)
+		if (position >= 1 && position <= this.size())
 		{
-			o = this.table[position - 1];
+			o = this.table[this.size() - position];
 		}
 		
 		return o;
@@ -63,7 +63,7 @@ public class ImplStack extends Stack
 	@Override
 	public boolean isEmpty()
 	{
-		return (this.size == 0);
+		return (this.size() == 0);
 	}
 
 	/*
@@ -72,7 +72,7 @@ public class ImplStack extends Stack
 	private void resize() {
 		Object[] newTable = new Object[this.table.length + ImplStack.TABLE_SIZE];
 		
-		for (int i = 0; i < this.size; i++)
+		for (int i = 0; i < this.size(); i++)
 		{
 			newTable[i] = this.table[i];
 		}
@@ -84,7 +84,7 @@ public class ImplStack extends Stack
 	 * Retourne true si le tableau de la pile est plein, sinon false.
 	 */
 	private boolean isFull() {
-		return (this.size >= this.table.length);
+		return (this.size() >= this.table.length);
 	}
 	
 	/* (non-Javadoc)
@@ -93,7 +93,7 @@ public class ImplStack extends Stack
 	@Override
 	public Object peek()
 	{
-		return this.get(this.size - 1);
+		return this.get(1);
 	}
 
 	/* (non-Javadoc)
@@ -128,13 +128,13 @@ public class ImplStack extends Stack
 			}
 			
 			//Ajoute l'élément au tableau
-			this.table[size] = obj;
+			this.table[this.size] = obj;
 			this.size++;
 		}
 			
 		return obj;
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see util.collection.Stack#search(java.lang.Object)
 	 */
@@ -149,7 +149,7 @@ public class ImplStack extends Stack
                 for (int i = 1; i <= this.size; i++)
                 {
                         // Si l'objet recherché est égal à celui courant en i
-                        if (obj.equals(this.get(i - 1)))
+                        if (obj.equals(this.get(i)))
                         {
                                 pos = i;
                                 break;
@@ -177,10 +177,11 @@ public class ImplStack extends Stack
 	{
 		String s = new String();
 
-        for (int i = 1; i <= this.size; i++)
+        for (int i = this.size - 1; i >= 0; i--)
         {
-                s += table[i - 1].toString();
-                if (i <= size - 1)
+                s += this.table[i].toString();
+                
+                if (i > 0)
                 {
                         s += ", ";
                 }
