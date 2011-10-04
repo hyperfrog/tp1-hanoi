@@ -3,10 +3,10 @@ package util.collection.arrayStack;
 import util.collection.Stack;
 
 /**
- * Impl√©mentation de la classe Stack par un tableau.
+ * ImplÈmentation de la classe Stack par un tableau.
  * 
- * Il s'agit d'une pile d'objets de type ¬´ dernier entr√©, premier sorti ¬ª
- * (LIFO). Elle n'accepte pas d'√©l√©ments marqu√©s ¬´ null ¬ª.
+ * Il s'agit d'une pile d'objets de type ´ dernier entrÈ, premier sorti ª (LIFO). 
+ * Elle n'accepte pas d'ÈlÈments marquÈs ´ null ª.
  * 
  * @author Christian Lesage
  * @author Alexandre Tremblay
@@ -14,16 +14,15 @@ import util.collection.Stack;
  */
 public class ImplStack extends Stack
 {
-	// Taille par d√©faut du tableau et valeur utilis√© lors d'un
-	// agrandissement.
+	// Taille par dÈfaut du tableau et valeur utilisÈ lors d'un agrandissement.
 	private final static int TABLE_SIZE = 5;
-
+	
 	// Taille de la pile.
 	private int size;
-
+	
 	// Tableau d'objet
 	private Object[] table;
-
+	
 	/**
 	 * Construit une pile vide.
 	 */
@@ -32,9 +31,7 @@ public class ImplStack extends Stack
 		this.clear();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see util.collection.Stack#clear()
 	 */
 	@Override
@@ -44,27 +41,23 @@ public class ImplStack extends Stack
 		this.size = 0;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see util.collection.Stack#get(int)
 	 */
 	@Override
 	public Object get(int position)
 	{
 		Object o = null;
-
+		
 		if (position >= 0 && position <= this.size)
 		{
-			o = this.table[position];
+			o = this.table[position - 1];
 		}
-
+		
 		return o;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see util.collection.Stack#isEmpty()
 	 */
 	@Override
@@ -74,31 +67,27 @@ public class ImplStack extends Stack
 	}
 
 	/*
-	 * Agrandit le tableau de la pile de ¬´ TABLE_SIZE ¬ª unit√©s.
+	 * Agrandi le tableau de la pile de ´ TABLE_SIZE ª unitÈs.
 	 */
-	private void resize()
-	{
+	private void resize() {
 		Object[] newTable = new Object[this.table.length + ImplStack.TABLE_SIZE];
-
-		for (int i = 0; i < size; i++)
+		
+		for (int i = 0; i < this.size; i++)
 		{
 			newTable[i] = this.table[i];
 		}
-
+		
 		this.table = newTable;
 	}
-
+	
 	/*
 	 * Retourne true si le tableau de la pile est plein, sinon false.
 	 */
-	private boolean isFull()
-	{
+	private boolean isFull() {
 		return (this.size >= this.table.length);
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
+	
+	/* (non-Javadoc)
 	 * @see util.collection.Stack#peek()
 	 */
 	@Override
@@ -107,28 +96,24 @@ public class ImplStack extends Stack
 		return this.get(this.size - 1);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see util.collection.Stack#pop()
 	 */
 	@Override
 	public Object pop()
 	{
 		Object o = null;
-
+		
 		if (!this.isEmpty())
 		{
 			o = this.peek();
 			this.size--;
 		}
-
+		
 		return o;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see util.collection.Stack#push(java.lang.Object)
 	 */
 	@Override
@@ -136,50 +121,46 @@ public class ImplStack extends Stack
 	{
 		if (obj != null)
 		{
-			// Si le tableau est plein, on redimensionne
-			if (this.isFull())
+			//Si le tableau est plein, on redimensionne
+			if (isFull())
 			{
-				this.resize();
+				resize();
 			}
-
-			// Ajoute l'√©l√©ment au tableau
+			
+			//Ajoute l'ÈlÈment au tableau
 			this.table[size] = obj;
 			this.size++;
 		}
-
+			
 		return obj;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see util.collection.Stack#search(java.lang.Object)
 	 */
 	@Override
 	public int search(Object obj)
 	{
 		int pos = Stack.NULL_POSITION;
-
-		if (obj != null)
-		{
-			// V√©rifie chacun des √©l√©ments de la pile.
-			for (int i = 0; i < this.size; i++)
-			{
-				// Si l'objet recherch√© est √©gal √†celui courant en i
-				if (obj.equals(this.get(i)))
-				{
-					pos = i;
-					break;
-				}
-			}
-		}
-
-		return pos;
+        
+        if (obj != null) 
+        {
+                // VÈrifie chacun des ÈlÈments de la pile.
+                for (int i = 1; i <= this.size; i++)
+                {
+                        // Si l'objet recherchÈ est Ègal ‡ celui courant en i
+                        if (obj.equals(this.get(i - 1)))
+                        {
+                                pos = i;
+                                break;
+                        }
+                }
+        }
+        
+        return pos;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see util.collection.Stack#size()
 	 */
 	@Override
@@ -188,9 +169,7 @@ public class ImplStack extends Stack
 		return this.size;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see util.collection.Stack#toString()
 	 */
 	@Override
@@ -198,15 +177,16 @@ public class ImplStack extends Stack
 	{
 		String s = new String();
 
-		for (int i = 1; i <= this.size; i++)
-		{
-			s += this.table[i].toString();
-			if (i <= size - 1)
-			{
-				s += ", ";
-			}
-		}
+        for (int i = 1; i <= this.size; i++)
+        {
+                s += table[i - 1].toString();
+                if (i <= size - 1)
+                {
+                        s += ", ";
+                }
+        }
 
-		return "[" + s + "]";
+        return "[" + s + "]";
 	}
+
 }
