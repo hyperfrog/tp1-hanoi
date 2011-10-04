@@ -1,6 +1,7 @@
 package appHanoi.model;
 
-import appHanoi.form.GameBoard;
+import java.awt.Color;
+import java.awt.Graphics;
 
 /**
  * 
@@ -11,25 +12,28 @@ import appHanoi.form.GameBoard;
  */
 public class Game
 {
+	//
+	private final static int NB_TOWERS = 3;
 	
 	//
 	private Tower[] towers;
+	
+	//
+	private int nbDisks;
 
 	/**
 	 * 
 	 */
 	public Game()
 	{
-		this.towers = new Tower[3];
+		this.towers = new Tower[Game.NB_TOWERS];
 		
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < Game.NB_TOWERS; i++)
 		{
 			this.towers[i] = new Tower();
 		}
 		
-		
-		
-		
+		this.replay(this.nbDisks); // TODO
 	}
 	
 	/**
@@ -43,13 +47,15 @@ public class Game
 	{
 		boolean succeed = false;
 		
-		if ((fromTower >= 0 && fromTower < 3) && (toTower >= 0 && toTower < 3) && fromTower != toTower)
+		if ((fromTower >= 0 && fromTower < Game.NB_TOWERS) 
+				&& (toTower >= 0 && toTower < Game.NB_TOWERS) 
+				&& fromTower != toTower)
 		{
 			if (this.towers[fromTower].peek() != null)
 			{
-				Object o = this.towers[fromTower].peek();
+				Disk d = (Disk) this.towers[fromTower].peek();
 				
-				if (this.towers[toTower].push(o) != null)
+				if (this.towers[toTower].push(d) != null)
 				{
 					this.towers[fromTower].pop();
 					succeed = true;
@@ -61,14 +67,20 @@ public class Game
 	}
 
 	/**
-	 * @param gameBoard
+	 * 
+	 * 
+	 * @param g
+	 * @return g
 	 */
-	public void drawTowers(GameBoard gameBoard)
+	public void redraw(Graphics g) // TODO : Peut-être laisser à drawTowers ?
 	{
-
+		g.setColor(Color.BLUE);
+		g.drawRect(10, 10, 100, 100);
 	}
 	
 	/**
+	 * 
+	 * 
 	 * @param nbDisks
 	 */
 	public void replay(int nbDisks)

@@ -3,6 +3,8 @@
  */
 package appHanoi.model;
 
+import java.awt.Graphics;
+
 import util.collection.linkedStack.ImplStack;
 
 /**
@@ -100,6 +102,14 @@ public class Tower extends ImplStack
 		}
 		
 		return o;
+	}
+	
+	/**
+	 * 
+	 */
+	public Graphics redraw(Graphics g)
+	{
+		return g;
 	}
 
 }

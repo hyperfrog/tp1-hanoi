@@ -4,6 +4,7 @@
 package appHanoi.model;
 
 import java.awt.Color;
+import java.awt.Graphics;
 
 /**
  * La classe Disk permet des créer des disques utilisables par le jeu des tours de Hanoi.
@@ -74,6 +75,13 @@ public class Disk
 //		this.color = color;
 //	}
     
+	/**
+	 * 
+	 */
+	public Graphics redraw(Graphics g)
+	{
+		return g;
+	}
     
     
 }
