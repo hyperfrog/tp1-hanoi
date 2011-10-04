@@ -1,6 +1,3 @@
-/**
- * 
- */
 package util.collection.linkedStack;
 
 /**
@@ -31,7 +28,10 @@ public class Node
 	 */
 	public String toString()
 	{
-		return value.toString();
+		if (this.value == null)
+			return "";
+		else
+			return value.toString();
 	}
 
 
