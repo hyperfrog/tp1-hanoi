@@ -28,12 +28,8 @@ public class Node
 	 */
 	public String toString()
 	{
-		if (this.value == null)
-			return "";
-		else
-			return value.toString();
+		return this.value == null ? "" : value.toString();
 	}
-
 
 	/**
 	 * Retourne le noeud suivant s'il existe, sinon null.

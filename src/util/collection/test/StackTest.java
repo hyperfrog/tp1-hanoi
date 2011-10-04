@@ -3,6 +3,7 @@ package util.collection.test;
 import org.junit.Test;
 import org.junit.Assert;
 import util.collection.arrayStack.ImplStack;
+//import util.collection.linkedStack.ImplStack;
 import util.collection.Stack;
 
 /**
@@ -17,6 +18,9 @@ import util.collection.Stack;
 public class StackTest
 {
 
+	/**
+	 * Méthode de test pour {@link appHanoi.model.Tower#Tower()}.
+	 */	
 	@Test
 	public void testStack()
 	{

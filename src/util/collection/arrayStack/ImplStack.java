@@ -14,7 +14,7 @@ import util.collection.Stack;
  */
 public class ImplStack extends Stack
 {
-	// Taille par défaut du tableau et valeur utilisé lors d'un agrandissement.
+	// Taille par défaut du tableau et valeur utilisée lors d'un agrandissement.
 	private final static int TABLE_SIZE = 5;
 	
 	// Taille de la pile.
@@ -67,7 +67,7 @@ public class ImplStack extends Stack
 	}
 
 	/*
-	 * Agrandi le tableau de la pile de « TABLE_SIZE » unités.
+	 * Agrandit le tableau de la pile de « TABLE_SIZE » unités.
 	 */
 	private void resize() {
 		Object[] newTable = new Object[this.table.length + ImplStack.TABLE_SIZE];
@@ -142,22 +142,22 @@ public class ImplStack extends Stack
 	public int search(Object obj)
 	{
 		int pos = Stack.NULL_POSITION;
-        
-        if (obj != null) 
-        {
-                // Vérifie chacun des éléments de la pile.
-                for (int i = 1; i <= this.size; i++)
-                {
-                        // Si l'objet recherché est égal à celui courant en i
-                        if (obj.equals(this.get(i)))
-                        {
-                                pos = i;
-                                break;
-                        }
-                }
-        }
-        
-        return pos;
+
+		if (obj != null) 
+		{
+			// Vérifie chacun des éléments de la pile.
+			for (int i = 1; i <= this.size; i++)
+			{
+				// Si l'objet recherché est égal à celui courant en i
+				if (obj.equals(this.get(i)))
+				{
+					pos = i;
+					break;
+				}
+			}
+		}
+
+		return pos;
 	}
 
 	/* (non-Javadoc)
@@ -177,17 +177,17 @@ public class ImplStack extends Stack
 	{
 		String s = new String();
 
-        for (int i = this.size - 1; i >= 0; i--)
-        {
-                s += this.table[i].toString();
-                
-                if (i > 0)
-                {
-                        s += ", ";
-                }
-        }
+		for (int i = this.size - 1; i >= 0; i--)
+		{
+			s += this.table[i].toString();
 
-        return "[" + s + "]";
+			if (i > 0)
+			{
+				s += ", ";
+			}
+		}
+
+		return "[" + s + "]";
 	}
 
 }
