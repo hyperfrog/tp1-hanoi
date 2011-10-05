@@ -158,5 +158,15 @@ public class TowerTest
 		Assert.assertNull(t.pop());
 		Assert.assertEquals(0, t.size());		
 	}
+	
+	/**
+	 * Méthode de test pour {@link appHanoi.model.Tower#redraw(java.awt.Graphics, int)}.
+	 * 
+	 * Il n'y a rien à tester, car la méthode ne retourne rien et ne change pas l'état de l'objet.
+	 */
+	@Test
+	public void testRedrawGraphicsInt()
+	{
+	}
 
 }

@@ -81,12 +81,16 @@ public class Disk
 //	}
     
 	/**
-	 * Dessine le disque dans le Graphics spécifié 
+	 * Dessine le disque dans le Graphics spécifié
+	 *  
+	 * @param g le Graphics dans lequel le disque doit se dessiner
+	 * @param nbDisks le nombre total de disques pour cette partie
 	 */
 	public void redraw(Graphics g, int nbDisks)
 	{
 		if (g != null)
 		{
+			// Obtient le rectangle délimitant la zone du disque
 			Rectangle r = g.getClipBounds();
 
 			// Calcule la position et la largeur du disque 
@@ -94,8 +98,8 @@ public class Disk
 			int diskWidth = Math.round((this.diameter - 1) * widthFactor) + SMALLEST_DISK_WIDTH;
 			int diskX = (r.width - diskWidth) / 2;
 
-			g.setColor(Color.RED);
-
+			// Dessine le disque
+			g.setColor(this.color);
 			g.fillRect(diskX, r.y, diskWidth, r.height - 1);
 		}
 	}

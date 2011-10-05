@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 /**
- * 
+ * La classe Game encapsule la logique du jeu des tours de Hanoi.
  * 
  * @author Christian Lesage
  * @author Alexandre Tremblay
@@ -21,14 +21,26 @@ public class Game
 	
 	// Nombre de disques utilisés pour la partie
 	private int nbDisks;
+	
+	// Indique si la partie est terminée
+	private boolean isOver;
+	
 
 	/**
-	 * Construit une nouvelle partie
+	 * Construit une nouvelle partie avec le nombre de disques spécifié.
+	 * 
+	 * Si le nombre de disques spécifié n'est pas compris dans l'intervalle [3, 64], 
+	 * la partie est créée avec 3 disques. 
+	 * 
+	 * @param nbDisks le nombre de disques pour la partie
 	 */
 	public Game(int nbDisks)
 	{
 		this.towers = new Tower[Game.NB_TOWERS];
-		this.nbDisks = nbDisks;
+		
+		this.nbDisks = (nbDisks >= 3 && nbDisks <=64) ? nbDisks : 3;
+		
+		this.isOver = false;
 		
 		// Crée les tours
 		for (int i = 0; i < Game.NB_TOWERS; i++)
@@ -39,18 +51,51 @@ public class Game
 		// Ajoute des disques sur la première tour 
 		for (int i = this.nbDisks; i > 0; i--)
 		{
-			towers[0].push(new Disk(i, null));
+			towers[0].push(new Disk(i, diskNumToDiskColor(i)));
 		}
 		
 //		this.replay(this.nbDisks); // TODO
 	}
 	
+	// Retourne une couleur choisie en fonction du numéro du disque 
+	private Color diskNumToDiskColor(int diskNum)
+	{
+		Color c = null;
+		switch ((diskNum - 1) % 5)
+		{
+			case 0:
+				c = Color.RED;
+				break;
+			case 1:
+				c = Color.GREEN;
+				break;
+			case 2:
+				c = Color.BLUE;
+				break;
+			case 3:
+				c = Color.BLACK;
+				break;
+			case 4:
+				c = Color.YELLOW;
+				break;
+		}
+		
+		return c;
+	}
+	
 	/**
+	 * Déplace un disque d'une tour à l'autre.
 	 * 
+	 * Le disque sur le dessus de la tour d'origine est déplacé sur la tour 
+	 * de destination si celle-ci est vide ou si le disque sur le dessus 
+	 * de celle-ci est plus grand que le disque à déplacer.
 	 * 
-	 * @param fromTower
-	 * @param toTower
-	 * @return
+	 *  Aucun déplacement n'est effectué si un des indices des tours n'est
+	 *  pas compris dans l'intervalle [0, 2].
+	 * 
+	 * @param fromTower la tour d'origine
+	 * @param toTower la tour de destination
+	 * @return vrai si le déplacement a été effectué, sinon faux.
 	 */
 	public boolean moveDisk(int fromTower, int toTower)
 	{
@@ -68,6 +113,12 @@ public class Game
 				{
 					this.towers[fromTower].pop();
 					succeeded = true;
+					
+					// Vérifie si la partie est terminée
+					if (toTower > 0)
+					{
+						this.isOver = this.towers[toTower].size() == this.nbDisks;
+					}
 				}
 			}
 		}
@@ -76,10 +127,9 @@ public class Game
 	}
 
 	/**
+	 * Dessine les tours dans le Graphics spécifié
 	 * 
-	 * 
-	 * @param g
-	 * @return g
+	 * @param g le Graphics dans lequel les tours doivent être dessinées
 	 */
 	public void redraw(Graphics g) // TODO : Peut-être laisser à drawTowers ?
 	{
@@ -109,4 +159,16 @@ public class Game
 //		
 //	}
 	
+	/**
+	 * Vérifie si la partie est terminée.
+	 * 
+	 * Une partie est terminée quand tous les disques ont été empilés 
+	 * dans une tour autre que celle de départ.
+	 * 
+	 * @return vrai si la partie est terminée, sinon faux.
+	 */
+	public boolean isOver()
+	{
+		return this.isOver;
+	}
 }

@@ -50,7 +50,7 @@ public class GameBoard extends JPanel implements ActionListener
 		this.message.setForeground(java.awt.Color.red);
 		this.add(messagePanel, BorderLayout.NORTH);
 
-		this.currentGame = new Game(5); // TODO : Demander le nombre de disques au joueur
+		this.currentGame = new Game(3); // TODO : Demander le nombre de disques au joueur
 //		this.redraw();
 //		this.repaint(1000);
 		
@@ -87,7 +87,14 @@ public class GameBoard extends JPanel implements ActionListener
 	{
 		if (this.currentGame.moveDisk(from - 1, to - 1))
 		{
-			this.message.setText("Disque déplacé de : " + from + " à " + to);
+			if (!this.currentGame.isOver())
+			{
+				this.message.setText("Disque déplacé de : " + from + " à " + to);
+			}
+			else
+			{
+				this.message.setText("Partie terminée !");
+			}
 		}
 		else
 		{
@@ -166,6 +173,7 @@ public class GameBoard extends JPanel implements ActionListener
 	public void paint(Graphics g)
 	{
 //		System.out.println("paint() appelé !");
+		// TODO : La méthode paint() ne devrait jamais être appelée directement !
 		super.paint(g);
 		this.redraw();
 	}

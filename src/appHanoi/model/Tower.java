@@ -110,26 +110,43 @@ public class Tower extends ImplStack
 	}
 	
 	/**
-	 * Dessine la tour dans le Graphics spécifié 
+	 * Dessine la tour dans le Graphics spécifié
+	 *  
+	 * @param g le Graphics dans lequel la tour doit se dessiner
+	 * @param nbDisks le nombre total de disques pour cette partie
 	 */
 	public void redraw(Graphics g, int nbDisks)
 	{
 		if (g != null)
 		{
+			// Obtient le rectangle délimitant la zone de la tour
 			Rectangle r = g.getClipBounds();
 
-			g.setColor(Color.BLACK);
-			//		g.drawRect(r.x, r.y, r.width - 1, r.height - 1);
+			// Détermine la position de la tour dans son rectangle
 			int towerX = (r.width - TOWER_WIDTH) / 2;
+
+			// Dessine la tour
+			g.setColor(Color.BLACK);
 			g.drawRect(towerX, r.y, TOWER_WIDTH, r.height - 1);
 
+			// Détermine la hauteur des disques
 			float diskHeight = (float)r.height / nbDisks;
 
+			// Dessine chacun des disques de la tour
 			for(int i = this.size(); i > 0; i--)
 			{
+				// Obtient le disque i
 				Disk d = (Disk)this.get(i);
+				
+				// Crée un Graphics pour le disque
+				Graphics g2 = g.create(
+						r.x, 
+						Math.round(diskHeight * (nbDisks - this.size() + i - 1)), 
+						r.width, 
+						Math.round(diskHeight));
 
-				d.redraw(g.create(r.x, Math.round(diskHeight * (nbDisks - this.size() + i - 1)), r.width, Math.round(diskHeight)), nbDisks);
+				// Dessine le disque
+				d.redraw(g2, nbDisks);
 			}
 		}
 	}
