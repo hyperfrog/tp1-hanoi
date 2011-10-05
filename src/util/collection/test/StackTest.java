@@ -19,7 +19,8 @@ public class StackTest
 {
 
 	/**
-	 * Méthode de test pour {@link appHanoi.model.Tower#Tower()}.
+	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#ImplStack()}.
+	 * Méthode de test pour {@link util.collection.arrayStack.ImplStack#ImplStack()}.
 	 */	
 	@Test
 	public void testStack()
@@ -31,6 +32,10 @@ public class StackTest
 		Assert.assertTrue(stk.isEmpty());
 	}
 
+	/**
+	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#push(java.lang.Object)}.
+	 * Méthode de test pour {@link util.collection.arrayStack.ImplStack#push(java.lang.Object)}.
+	 */	
 	@Test
 	public void testPushObject()
 	{
@@ -61,6 +66,10 @@ public class StackTest
 		Assert.assertEquals(1, stk.size());
 	}
 
+	/**
+	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#pop()}.
+	 * Méthode de test pour {@link util.collection.arrayStack.ImplStack#pop()}.
+	 */	
 	@Test
 	public void testPop()
 	{
@@ -85,6 +94,10 @@ public class StackTest
 
 	}
 
+	/**
+	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#size()}.
+	 * Méthode de test pour {@link util.collection.arrayStack.ImplStack#size()}.
+	 */	
 	@Test
 	public void testSize()
 	{
@@ -114,6 +127,10 @@ public class StackTest
 		Assert.assertEquals(0, stk.size());
 	}
 
+	/**
+	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#isEmpty()}.
+	 * Méthode de test pour {@link util.collection.arrayStack.ImplStack#isEmpty()}.
+	 */	
 	@Test
 	public void testIsEmpty()
 	{
@@ -127,6 +144,10 @@ public class StackTest
 		Assert.assertFalse(stk.isEmpty());
 	}
 
+	/**
+	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#clear()}.
+	 * Méthode de test pour {@link util.collection.arrayStack.ImplStack#clear()}.
+	 */	
 	@Test
 	public void testClear()
 	{
@@ -139,6 +160,10 @@ public class StackTest
 		Assert.assertTrue(stk.isEmpty());
 	}
 
+	/**
+	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#peek()}.
+	 * Méthode de test pour {@link util.collection.arrayStack.ImplStack#peek()}.
+	 */	
 	@Test
 	public void testPeek()
 	{
@@ -156,6 +181,10 @@ public class StackTest
 		Assert.assertEquals(1, stk.size());
 	}
 
+	/**
+	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#search(java.lang.Object)}.
+	 * Méthode de test pour {@link util.collection.arrayStack.ImplStack#search(java.lang.Object)}.
+	 */	
 	@Test
 	public void testSearchObject()
 	{
@@ -178,6 +207,10 @@ public class StackTest
 		Assert.assertEquals(1, stk.search(obj1));
 	}
 
+	/**
+	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#get(int)}.
+	 * Méthode de test pour {@link util.collection.arrayStack.ImplStack#get(int)}.
+	 */	
 	@Test
 	public void testGetInt()
 	{
@@ -206,6 +239,10 @@ public class StackTest
 		Assert.assertNull(stk.get(4));
 	}
 
+	/**
+	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#toString()}.
+	 * Méthode de test pour {@link util.collection.arrayStack.ImplStack#toString()}.
+	 */	
 	@Test
 	public void testToString()
 	{

@@ -11,7 +11,7 @@ import appHanoi.form.AppFrame;
 
 /**
  * La classe MainApp est le point d'entrée du programme.
- *  
+ * 
  * @author Christian Lesage
  * @author Alexandre Tremblay
  *
@@ -20,8 +20,8 @@ import appHanoi.form.AppFrame;
 public class MainApp
 {
 	/**
-	 * Point d'entré du programme.
-	 * Créer une fenêtre et la rend visible.
+	 * Point d'entrée du programme.
+	 * Lance les tests, puis crée une fenêtre et la rend visible si tous les tests ont réussi, .
 	 * 
 	 * @param args
 	 */
@@ -36,7 +36,7 @@ public class MainApp
 		classesToTest.add("util.collection.test.NodeTest");
 		classesToTest.add("util.collection.test.StackTest");
 		classesToTest.add("appHanoi.model.test.TowerTest");
-//		classesATester.add("appHanoi.model.test.GameTest");
+//		classesToTest.add("appHanoi.model.test.GameTest");
 		
 		for(String className : classesToTest)
 		{

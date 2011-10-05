@@ -3,7 +3,10 @@
  */
 package appHanoi.model;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
+//import java.awt.Point;
 
 import util.collection.linkedStack.ImplStack;
 
@@ -22,6 +25,8 @@ import util.collection.linkedStack.ImplStack;
 public class Tower extends ImplStack
 {
 
+	private static final int TOWER_WIDTH = 10;
+	
 	/**
 	 * Construit une tour. 
 	 */
@@ -105,11 +110,27 @@ public class Tower extends ImplStack
 	}
 	
 	/**
-	 * 
+	 * Dessine la tour dans le Graphics spécifié 
 	 */
-	public Graphics redraw(Graphics g)
+	public void redraw(Graphics g, int nbDisks)
 	{
-		return g;
-	}
+		if (g != null)
+		{
+			Rectangle r = g.getClipBounds();
 
+			g.setColor(Color.BLACK);
+			//		g.drawRect(r.x, r.y, r.width - 1, r.height - 1);
+			int towerX = (r.width - TOWER_WIDTH) / 2;
+			g.drawRect(towerX, r.y, TOWER_WIDTH, r.height - 1);
+
+			float diskHeight = (float)r.height / nbDisks;
+
+			for(int i = this.size(); i > 0; i--)
+			{
+				Disk d = (Disk)this.get(i);
+
+				d.redraw(g.create(r.x, Math.round(diskHeight * (nbDisks - this.size() + i - 1)), r.width, Math.round(diskHeight)), nbDisks);
+			}
+		}
+	}
 }

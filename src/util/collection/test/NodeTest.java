@@ -15,7 +15,9 @@ import util.collection.linkedStack.Node;
 
 public class NodeTest
 {
-
+	/**
+	 * 	Méthode de test pour {@link util.collection.linkedStack.Node#Node()}
+	 */
 	@Test
 	public void testNode()
 	{
@@ -27,6 +29,9 @@ public class NodeTest
 		Assert.assertNull(n.getNext());
 	}
 
+	/**
+	 * Méthode de test pour {@link util.collection.linkedStack.Node#toString()}.
+	 */
 	@Test
 	public void testToString()
 	{
@@ -45,6 +50,9 @@ public class NodeTest
 		Assert.assertEquals("", n.toString());
 	}
 
+	/**
+	 * Méthode de test pour {@link util.collection.linkedStack.Node#getNext()}.
+	 */
 	@Test
 	public void testGetNext()
 	{
@@ -63,6 +71,9 @@ public class NodeTest
 		Assert.assertNull(n1.getNext());
 	}
 
+	/**
+	 * Méthode de test pour {@link util.collection.linkedStack.Node#setNext(util.collection.linkedStack.Node)}.
+	 */
 	@Test
 	public void testSetNext()
 	{
@@ -78,6 +89,9 @@ public class NodeTest
 		Assert.assertNull(n1.getNext());
 	}
 
+	/**
+	 * Méthode de test pour {@link util.collection.linkedStack.Node#getValue()}.
+	 */
 	@Test
 	public void testGetValue()
 	{
@@ -96,6 +110,9 @@ public class NodeTest
 		Assert.assertNull(n.getValue());
 	}
 
+	/**
+	 * Méthode de test pour {@link util.collection.linkedStack.Node#setValue(java.lang.Object)}.
+	 */
 	@Test
 	public void testSetValue()
 	{

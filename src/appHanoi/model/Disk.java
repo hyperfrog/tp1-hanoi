@@ -5,6 +5,8 @@ package appHanoi.model;
 
 import java.awt.Color;
 import java.awt.Graphics;
+//import java.awt.Point;
+import java.awt.Rectangle;
 
 /**
  * La classe Disk permet des créer des disques utilisables par le jeu des tours de Hanoi.
@@ -20,6 +22,9 @@ public class Disk
 
     // couleur du disque
     private Color color;
+    
+    // Largeur du plus petit disque à l'écran
+    private static final int SMALLEST_DISK_WIDTH = 40; 
 
     /**
      * Construit un disque ayant le diamètre et la couleur spécifiés. 
@@ -76,11 +81,23 @@ public class Disk
 //	}
     
 	/**
-	 * 
+	 * Dessine le disque dans le Graphics spécifié 
 	 */
-	public Graphics redraw(Graphics g)
+	public void redraw(Graphics g, int nbDisks)
 	{
-		return g;
+		if (g != null)
+		{
+			Rectangle r = g.getClipBounds();
+
+			// Calcule la position et la largeur du disque 
+			float widthFactor = (float)(r.width - SMALLEST_DISK_WIDTH) / (nbDisks - 1);
+			int diskWidth = Math.round((this.diameter - 1) * widthFactor) + SMALLEST_DISK_WIDTH;
+			int diskX = (r.width - diskWidth) / 2;
+
+			g.setColor(Color.RED);
+
+			g.fillRect(diskX, r.y, diskWidth, r.height - 1);
+		}
 	}
     
     
