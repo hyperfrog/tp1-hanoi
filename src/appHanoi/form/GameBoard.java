@@ -68,6 +68,7 @@ public class GameBoard extends JPanel implements ActionListener
         this.gamePanel.setBackground(Color.WHITE);
 
 		this.messagePanel.add(this.message);
+		this.messagePanel.setBackground(Color.WHITE);
 		this.message.setForeground(Color.red);
 		this.add(messagePanel, BorderLayout.NORTH);
 

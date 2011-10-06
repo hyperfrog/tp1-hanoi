@@ -23,9 +23,6 @@ public class Disk
     // couleur du disque
     private Color color;
     
-    // Largeur du plus petit disque à l'écran
-    private static final int SMALLEST_DISK_WIDTH = 40; 
-
     /**
      * Construit un disque ayant le diamètre et la couleur spécifiés. 
      * 
@@ -93,9 +90,12 @@ public class Disk
 			// Obtient le rectangle délimitant la zone du disque
 			Rectangle r = g.getClipBounds();
 
+			// Calcule la largeur du plus petit disque
+			int minDiskWidth = (int)(r.width * 0.2);
+			
 			// Calcule la position et la largeur du disque 
-			float widthFactor = (nbDisks > 1) ? (float)(r.width - SMALLEST_DISK_WIDTH) / (nbDisks - 1) : 1;
-			int diskWidth = Math.round((this.diameter - 1) * widthFactor) + SMALLEST_DISK_WIDTH;
+			float widthFactor = (nbDisks > 1) ? (float)(r.width - minDiskWidth) / (nbDisks - 1) : 1;
+			int diskWidth = Math.round((this.diameter - 1) * widthFactor) + minDiskWidth;
 			int diskX = (r.width - diskWidth) / 2;
 
 			// Dessine le disque

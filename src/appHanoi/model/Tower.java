@@ -25,8 +25,6 @@ import util.collection.linkedStack.ImplStack;
 public class Tower extends ImplStack
 {
 
-	private static final int TOWER_WIDTH = 10;
-	
 	/**
 	 * Construit une tour. 
 	 */
@@ -121,13 +119,16 @@ public class Tower extends ImplStack
 		{
 			// Obtient le rectangle délimitant la zone de la tour
 			Rectangle r = g.getClipBounds();
+			
+			// Calcule la largeur de la tour
+			int towerWidth = (int)(r.width * 0.1);
 
 			// Détermine la position de la tour dans son rectangle
-			int towerX = (r.width - TOWER_WIDTH) / 2;
+			int towerX = (r.width - towerWidth) / 2;
 
 			// Dessine la tour
-			g.setColor(Color.BLACK);
-			g.drawRect(towerX, r.y, TOWER_WIDTH, r.height - 1);
+			g.setColor(Color.GRAY);
+			g.fillRect(towerX, r.y, towerWidth, r.height - 1);
 
 			// Détermine la hauteur des disques
 			float diskHeight = (nbDisks > 0) ? (float)r.height / nbDisks : 0;
