@@ -130,7 +130,7 @@ public class Tower extends ImplStack
 			g.drawRect(towerX, r.y, TOWER_WIDTH, r.height - 1);
 
 			// Détermine la hauteur des disques
-			float diskHeight = (float)r.height / nbDisks;
+			float diskHeight = (nbDisks > 0) ? (float)r.height / nbDisks : 0;
 
 			// Dessine chacun des disques de la tour
 			for(int i = this.size(); i > 0; i--)

@@ -94,7 +94,7 @@ public class Disk
 			Rectangle r = g.getClipBounds();
 
 			// Calcule la position et la largeur du disque 
-			float widthFactor = (float)(r.width - SMALLEST_DISK_WIDTH) / (nbDisks - 1);
+			float widthFactor = (nbDisks > 1) ? (float)(r.width - SMALLEST_DISK_WIDTH) / (nbDisks - 1) : 1;
 			int diskWidth = Math.round((this.diameter - 1) * widthFactor) + SMALLEST_DISK_WIDTH;
 			int diskX = (r.width - diskWidth) / 2;
 
