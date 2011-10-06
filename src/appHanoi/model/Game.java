@@ -136,9 +136,9 @@ public class Game
 		if (g != null)
 		{
 			Rectangle r = g.getClipBounds();
-			//		g.setColor(Color.BLUE);
-			//		g.drawRect(r.x, r.y, r.width - 1, r.height - 1);
-			g.clearRect(r.x, r.y, r.width, r.height);
+
+			g.setColor(Color.WHITE);
+			g.fillRect(r.x, r.y, r.width, r.height);
 
 			float towerZoneWidth = (float)r.width / NB_TOWERS; 
 

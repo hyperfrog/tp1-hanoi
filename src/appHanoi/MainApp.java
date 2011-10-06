@@ -21,7 +21,7 @@ public class MainApp
 {
 	/**
 	 * Point d'entrée du programme.
-	 * Lance les tests, puis crée une fenêtre et la rend visible si tous les tests ont réussi, .
+	 * Lance les tests, puis crée une fenêtre et la rend visible si tous les tests ont réussi.
 	 * 
 	 * @param args
 	 */
@@ -64,7 +64,11 @@ public class MainApp
 		}
 		else
 		{
-			JOptionPane.showMessageDialog(null, errMsg);
+			JOptionPane.showMessageDialog(
+					null, 
+					errMsg + "\nL'application ne peut pas démarrer. Vous ne devriez pas blâmer les programmeurs, car vous ne les avez pas payés.\n", 
+					"Erreur fatale", 
+					JOptionPane.ERROR_MESSAGE);
 		}
 	}
 

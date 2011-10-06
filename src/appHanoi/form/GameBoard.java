@@ -7,11 +7,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.Color;
-import java.awt.Dimension;
+//import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
+//import java.awt.Point;
+//import java.awt.Rectangle;
+//import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,18 +24,19 @@ import java.awt.event.ActionListener;
  */
 public class GameBoard extends JPanel implements ActionListener
 {
-	public static final Point GAME_BOARD_LOCATION = new Point(10, 30);
-	public static final Dimension GAME_BOARD_DIMENSION = new Dimension(775, 350);
-
 	private Game currentGame = null;
 	
 	private JLabel message = new JLabel("Prêt!");
-	private JButton tower1Button = new JButton("Tour 1");
-	private JButton tower2Button = new JButton("Tour 2");
-	private JButton tower3Button = new JButton("Tour 3");
-	
-	private JButton cancelButton = new JButton("Annuler");
-	private JButton replayButton = new JButton("Nouvelle Partie...");
+
+    private JPanel buttonPanel;
+    private JPanel towerButtonPanel;	
+    private JPanel otherButtonPanel;
+    private JPanel gamePanel;
+//    private JButton cancelButton;
+    private JButton replayButton;
+    private JButton tower1Button;
+    private JButton tower2Button;
+    private JButton tower3Button;
 	
 	private boolean waitingForSelection = false;
 	private int fromTower;
@@ -42,44 +45,60 @@ public class GameBoard extends JPanel implements ActionListener
 	{
 		super();
 		
-		this.setLayout(new BorderLayout());
+        buttonPanel = new JPanel();
+        towerButtonPanel = new JPanel();
+        otherButtonPanel = new JPanel();
+		gamePanel = new JPanel();
+        tower1Button = new JButton();
+        tower2Button = new JButton();
+        tower3Button = new JButton();
+//        cancelButton = new JButton();
+        replayButton = new JButton();
+
+        this.setLayout(new BorderLayout());
+        
+        this.add(gamePanel, BorderLayout.CENTER);
+        gamePanel.setBackground(Color.WHITE);
 
 		JPanel messagePanel = new JPanel();
-		messagePanel.setBackground(Color.LIGHT_GRAY);
 		messagePanel.add(this.message);
-		this.message.setForeground(java.awt.Color.red);
+		this.message.setForeground(Color.red);
 		this.add(messagePanel, BorderLayout.NORTH);
 
-		this.currentGame = new Game(3); // TODO : Demander le nombre de disques au joueur
-//		this.redraw();
-//		this.repaint(1000);
-		
-		this.tower1Button.setActionCommand("1");
+//        towerButtonPanel.setRequestFocusEnabled(false);
+        towerButtonPanel.setLayout(new GridLayout(0, 3));
+
 		this.tower1Button.addActionListener(this);
-		
-		this.tower2Button.setActionCommand("2");
 		this.tower2Button.addActionListener(this);
-		
-		this.tower3Button.setActionCommand("3");
 		this.tower3Button.addActionListener(this);
+
+		this.towerButtonPanel.add(tower1Button);
+		this.towerButtonPanel.add(tower2Button);
+		this.towerButtonPanel.add(tower3Button);
 		
-		this.cancelButton.setActionCommand("CANCEL");
-		this.cancelButton.addActionListener(this);
+		this.resetButtons();
+		
+//		this.cancelButton.setActionCommand("CANCEL");
+//		this.cancelButton.addActionListener(this);
 		
 		this.replayButton.setActionCommand("REPLAY");
 		this.replayButton.addActionListener(this);
 		
-		JPanel buttonsPanel = new JPanel();
-		buttonsPanel.setBackground(Color.LIGHT_GRAY);
-		buttonsPanel.add(this.tower1Button);
-		buttonsPanel.add(this.tower2Button);
-		buttonsPanel.add(this.tower3Button);
-		buttonsPanel.add(this.cancelButton);
-		buttonsPanel.add(this.replayButton);
-		
-		this.add(buttonsPanel, BorderLayout.SOUTH);
-		
-		this.setBackground(Color.WHITE);
+        buttonPanel.setLayout(new BorderLayout());
+        
+        buttonPanel.add(towerButtonPanel, BorderLayout.PAGE_START);
+
+//        cancelButton.setText("Annuler déplacement");
+//        otherButtonPanel.add(cancelButton);
+
+        replayButton.setText("Nouvelle partie");
+        otherButtonPanel.add(replayButton);
+
+        buttonPanel.add(otherButtonPanel, BorderLayout.PAGE_END);
+
+        this.add(buttonPanel, BorderLayout.PAGE_END);
+
+        this.currentGame = new Game(3); // TODO : Demander le nombre de disques au joueur
 		
 	}
 
@@ -89,7 +108,7 @@ public class GameBoard extends JPanel implements ActionListener
 		{
 			if (!this.currentGame.isOver())
 			{
-				this.message.setText("Disque déplacé de : " + from + " à " + to);
+				this.message.setText(String.format("Disque déplacé de la tour %s vers la tour %s.", from , to));
 			}
 			else
 			{
@@ -98,7 +117,7 @@ public class GameBoard extends JPanel implements ActionListener
 		}
 		else
 		{
-			this.message.setText("Déplacement impossible de : " + from + " à " + to);
+			this.message.setText(String.format("Déplacement impossible de la tour %s vers la tour %s.", from , to));
 		}
 
 		this.resetButtons();
@@ -106,38 +125,41 @@ public class GameBoard extends JPanel implements ActionListener
 		// this.repaint();
 	}
 	
-	private void redraw()
+	public void redraw()
 	{
-		Graphics g = this.getGraphics();
+		Graphics g = this.gamePanel.getGraphics();
 		if (g != null)
 		{
-//			g.clearRect(GAME_BOARD_LOCATION.x, GAME_BOARD_LOCATION.y, GAME_BOARD_DIMENSION.width, GAME_BOARD_DIMENSION.height);
-			this.currentGame.redraw(g.create(
-					GAME_BOARD_LOCATION.x, 
-					GAME_BOARD_LOCATION.y, 
-					GAME_BOARD_DIMENSION.width, 
-					GAME_BOARD_DIMENSION.height));
-		}
+			g.setClip(0, 0, this.gamePanel.getWidth(), this.gamePanel.getHeight());
+			this.currentGame.redraw(g);
+		}		
 	}
 
 	private void replay()
 	{
 		this.message.setText("Prêt!");
 
-//		this.currentGame.replay(3); // TODO : Utilisé pour tester uniquement.
 		this.currentGame = new Game(10); // TODO : Demander le nombre de disques au joueur
 	
 		this.redraw();
-		// this.repaint();
 		
 		this.resetButtons();
 	}
 	
 	private void resetButtons()
 	{
-		this.tower1Button.setEnabled(true);
-		this.tower2Button.setEnabled(true);
-		this.tower3Button.setEnabled(true);
+//		this.tower1Button.setEnabled(true);
+//		this.tower2Button.setEnabled(true);
+//		this.tower3Button.setEnabled(true);
+		
+        this.tower1Button.setActionCommand("1");
+		this.tower1Button.setText("Tour 1");
+		
+		this.tower2Button.setActionCommand("2");
+		this.tower2Button.setText("Tour 2");
+		
+		this.tower3Button.setActionCommand("3");
+		this.tower3Button.setText("Tour 3");
 	}
 
 	public void actionPerformed(ActionEvent evt)
@@ -148,12 +170,16 @@ public class GameBoard extends JPanel implements ActionListener
 			
 			if (waitingForSelection)
 			{
-				this.moveDisk(this.fromTower, Integer.parseInt(bSrc.getActionCommand()));
+				this.moveDisk(this.fromTower, Integer.parseInt(evt.getActionCommand()));
+				this.resetButtons();
 			}
 			else
 			{
-				this.fromTower = Integer.parseInt(bSrc.getActionCommand());
-				bSrc.setEnabled(false);
+				this.fromTower = Integer.parseInt(evt.getActionCommand());
+//				bSrc.setEnabled(false);
+				bSrc.setText("Annuler");
+				bSrc.setActionCommand("CANCEL");
+				this.message.setText(String.format("Déplacement de la tour %s vers la tour...", evt.getActionCommand()));
 			}
 			
 			waitingForSelection = !waitingForSelection;
@@ -162,26 +188,12 @@ public class GameBoard extends JPanel implements ActionListener
 		{
 			this.waitingForSelection = false;
 			this.resetButtons();
+			this.message.setText("Prêt!");
 		}
 		else if (evt.getActionCommand().equals("REPLAY"))
 		{
 			this.replay();
 		}
 	}
-
-	@Override
-	public void paint(Graphics g)
-	{
-//		System.out.println("paint() appelé !");
-		// TODO : La méthode paint() ne devrait jamais être appelée directement !
-		super.paint(g);
-		this.redraw();
-	}
-	
-//	@Override
-//	public void update(Graphics g)
-//	{
-//		System.out.println("update() appelé !");
-//	}
 	
 }
