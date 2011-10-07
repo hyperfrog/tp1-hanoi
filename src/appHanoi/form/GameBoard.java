@@ -3,9 +3,13 @@ package appHanoi.form;
 import appHanoi.model.Disk;
 import appHanoi.model.Game;
 
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -23,7 +27,7 @@ import java.util.Arrays;
  * À MODIFIER ET COMPLÉTER: code, javadoc, standards (static/final),
  * commentaires
  */
-public class GameBoard extends JPanel implements ActionListener, KeyListener
+public class GameBoard extends JPanel implements ActionListener
 {
 	private Game currentGame = null;
 	
@@ -38,11 +42,13 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener
     private JButton tower1Button;
     private JButton tower2Button;
     private JButton tower3Button;
-	
+    private JCheckBox autoSolveCheckBox;
+    private JLabel nbDisksLabel;
+    private JSpinner nbDisksSpinner;
+    
 	private boolean waitingForSelection = false;
 	private int fromTower;
-	private boolean isShiftDown = false;
-	
+
 	private volatile Thread solverThread = null;
 	
 	/**
@@ -53,8 +59,6 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener
 	{
 		super();
 
-		this.currentGame = new Game(3); 
-		
         this.buttonPanel = new JPanel();
         this.towerButtonPanel = new JPanel();
         this.otherButtonPanel = new JPanel();
@@ -65,7 +69,12 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener
         this.tower3Button = new JButton();
 //        cancelButton = new JButton();
         this.replayButton = new JButton();
-        this.message = new JLabel("Prêt!");
+        SpinnerModel sm = new SpinnerNumberModel(5, 3, 64, 1);
+        nbDisksSpinner = new javax.swing.JSpinner(sm);
+        nbDisksLabel = new javax.swing.JLabel();
+        autoSolveCheckBox = new javax.swing.JCheckBox();
+        
+        this.message = new JLabel();
 
         this.setLayout(new BorderLayout());
         this.add(gamePanel, BorderLayout.CENTER);
@@ -88,8 +97,6 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener
 		this.towerButtonPanel.add(tower2Button);
 		this.towerButtonPanel.add(tower3Button);
 		
-		this.resetButtons();
-		
 //		this.cancelButton.setActionCommand("CANCEL");
 //		this.cancelButton.addActionListener(this);
 		
@@ -105,18 +112,27 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener
 
         replayButton.setText("Nouvelle partie");
         otherButtonPanel.add(replayButton);
+        otherButtonPanel.add(nbDisksSpinner);
+        nbDisksLabel.setText("disques");
+        otherButtonPanel.add(nbDisksLabel);
+        autoSolveCheckBox.setText("Résoudre");
+        otherButtonPanel.add(autoSolveCheckBox);
+
 
         buttonPanel.add(otherButtonPanel, BorderLayout.PAGE_END);
 
         this.add(buttonPanel, BorderLayout.PAGE_END);
         
-        this.replayButton.addKeyListener(this);
+        this.replay();
 	}
 
 	// Déplace un disque de la tour from vers la tour to
-	private void moveDisk(int from, int to)
+	// Suppose que la première tour est la tour 1
+	private boolean moveDisk(int from, int to)
 	{
-		if (this.currentGame.moveDisk(from - 1, to - 1))
+		boolean diskMoved = this.currentGame.moveDisk(from - 1, to - 1);
+		
+		if (diskMoved)
 		{
 			if (!this.currentGame.isOver())
 			{
@@ -133,6 +149,8 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener
 		}
 
 		this.redraw();
+		
+		return diskMoved;
 	}
 	
 	/**
@@ -155,10 +173,29 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener
 	{
 		solverThread = null;
 		
-		this.currentGame = new Game(4); // TODO : Demander le nombre de disques au joueur
+		SpinnerNumberModel sm = (SpinnerNumberModel)nbDisksSpinner.getModel();
+		int nbDisks = sm.getNumber().intValue();
+		
+		this.currentGame = new Game(nbDisks);
 		this.redraw();
 		this.message.setText("Prêt!");
 		this.resetButtons();
+
+		if (autoSolveCheckBox.isSelected())
+		{
+			final GameBoard gb = this;
+			
+			solverThread = new Thread(new Runnable(){
+				public void run()
+				{
+					gb.solve(solverThread);
+				}
+			});
+			
+			solverThread.start();
+		}
+
+		
 	}
 	
 	// Réinitialise les boutons des tours 
@@ -210,22 +247,6 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener
 		else if (evt.getActionCommand().equals("REPLAY"))
 		{
 			this.replay();
-			if (this.isShiftDown)
-			{
-				this.isShiftDown = false;
-
-				final GameBoard gb = this;
-				
-				solverThread = new Thread(new Runnable(){
-					public void run()
-					{
-						gb.solve(solverThread);
-					}
-				});
-				
-				solverThread.start();
-//				this.solve();
-			}
 		}
 	}
 
@@ -249,9 +270,9 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener
 				
 				if (diskNum == 0 && !this.currentGame.isOver()) // Déplace un «gros» disque (diamètre >= 4)
 				{
-					Disk diskToMove = this.currentGame.peekTower(0);
+					Disk diskToMove = null;
 					
-					for(int i = 1; i <= 2; i++)
+					for(int i = 0; i <= 2; i++)
 					{
 						Disk otherDisk = this.currentGame.peekTower(i);
 						
@@ -354,31 +375,4 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener
 			e.printStackTrace();
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
-	 */
-	@Override
-	public void keyPressed(KeyEvent e)
-	{
-		this.isShiftDown = e.isShiftDown();
-	}
-
-	/* (non-Javadoc)
-	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
-	 */
-	@Override
-	public void keyReleased(KeyEvent e)
-	{
-		this.isShiftDown = e.isShiftDown();
-	}
-
-	/* (non-Javadoc)
-	 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
-	 */
-	@Override
-	public void keyTyped(KeyEvent e)
-	{
-	}
-	
 }

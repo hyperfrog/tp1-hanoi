@@ -98,7 +98,7 @@ public class AppFrame extends JFrame implements ComponentListener
 		}
 	}
 
-	/** (non-Javadoc)
+	/* (non-Javadoc)
 	 * @see java.awt.event.ComponentListener#componentShown(java.awt.event.ComponentEvent)
 	 */
 	@Override
