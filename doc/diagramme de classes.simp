@@ -29,6 +29,8 @@
       <type id="Tower" name="Tower" description="" />
       <type id="GameBoard" name="GameBoard" description="" />
       <type id="Game" name="Game" description="" />
+      <type id="Graphics" name="Graphics" description="" />
+      <type id="INT" name="INT" description="" />
     </custom-types>
   </types>
   <items>
@@ -143,21 +145,36 @@
     <item id="di767206065361629935" cid="C002" type="class" name="ImplStack" style-class="" is-abstract="false">
       <stereotypes />
       <tagged-values />
-      <documentation />
+      <documentation>{\rtf1\ansi\ansicpg1252\deff0\deflang3084{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+\viewkind4\uc1\pard\f0\fs17\par
+}
+</documentation>
       <associated-diagrams />
       <owned-items />
       <style class="default" />
       <attributes>
+        <attribute id="" name="TABLE_SIZE" type="int" type-id="int" visibility="private" abstract="false" virtual="false" default-value="">
+          <stereotypes />
+          <documentation>{\rtf1\ansi\ansicpg1252\deff0\deflang3084{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+\viewkind4\uc1\pard\f0\fs17\par
+}
+</documentation>
+        </attribute>
         <attribute id="" name="table" type="Object[]" type-id="Object[]" visibility="private" abstract="false" virtual="false" default-value="">
           <stereotypes />
           <documentation />
         </attribute>
-        <attribute id="" name="nbElem" type="int" type-id="int" visibility="private" abstract="false" virtual="false" default-value="">
+        <attribute id="" name="size" type="int" type-id="int" visibility="private" abstract="false" virtual="false" default-value="">
           <stereotypes />
           <documentation />
         </attribute>
       </attributes>
       <operations>
+        <operation id="" name="ImplStack" type="" type-id="" visibility="public" abstract="false" virtual="false" static="false">
+          <parameters />
+          <stereotypes />
+          <documentation />
+        </operation>
         <operation id="" name="resize" type="" type-id="" visibility="private" abstract="false" virtual="false" static="false">
           <parameters />
           <stereotypes />
@@ -200,6 +217,11 @@
         </attribute>
       </attributes>
       <operations>
+        <operation id="" name="ImplStack" type="" type-id="" visibility="public" abstract="false" virtual="false" static="false">
+          <parameters />
+          <stereotypes />
+          <documentation />
+        </operation>
         <operation id="" name="getNode" type="Node" type-id="Node" visibility="private" abstract="false" virtual="false" static="false">
           <parameters>
             <parameter id="" name="position" type="int" type-id="int" default-value="">
@@ -254,6 +276,11 @@
         </attribute>
       </attributes>
       <operations>
+        <operation id="" name="Node" type="" type-id="" visibility="public" abstract="false" virtual="false" static="false">
+          <parameters />
+          <stereotypes />
+          <documentation />
+        </operation>
         <operation id="" name="toString" type="String" type-id="Uml.String" visibility="public" abstract="false" virtual="false" static="false">
           <parameters />
           <stereotypes />
@@ -417,6 +444,18 @@
             <parameter id="" name="diameter" type="int" type-id="int" default-value="">
               <documentation />
             </parameter>
+            <parameter id="" name="color" type="Color" type-id="Color" default-value="">
+              <documentation />
+            </parameter>
+          </parameters>
+          <stereotypes />
+          <documentation />
+        </operation>
+        <operation id="" name="redraw" type="" type-id="" visibility="public" abstract="false" virtual="false" static="false">
+          <parameters>
+            <parameter id="" name="g" type="Graphics" type-id="Graphics" default-value="">
+              <documentation />
+            </parameter>
           </parameters>
           <stereotypes />
           <documentation />
@@ -433,9 +472,23 @@
       <style class="default" />
       <attributes />
       <operations>
+        <operation id="" name="Tower" type="" type-id="" visibility="public" abstract="false" virtual="false" static="false">
+          <parameters />
+          <stereotypes />
+          <documentation />
+        </operation>
         <operation id="" name="push" type="Disk" type-id="Disk" visibility="public" abstract="false" virtual="false" static="false">
           <parameters>
             <parameter id="" name="element" type="Disk" type-id="Disk" default-value="">
+              <documentation />
+            </parameter>
+          </parameters>
+          <stereotypes />
+          <documentation />
+        </operation>
+        <operation id="" name="push" type="Object" type-id="Object" visibility="public" abstract="false" virtual="false" static="false">
+          <parameters>
+            <parameter id="" name="element" type="Object" type-id="Object" default-value="">
               <documentation />
             </parameter>
           </parameters>
@@ -447,9 +500,9 @@
           <stereotypes />
           <documentation />
         </operation>
-        <operation id="" name="push" type="Object" type-id="Object" visibility="public" abstract="false" virtual="false" static="false">
+        <operation id="" name="redraw" type="" type-id="" visibility="public" abstract="false" virtual="false" static="false">
           <parameters>
-            <parameter id="" name="element" type="Object" type-id="Object" default-value="">
+            <parameter id="" name="g" type="Graphics" type-id="Graphics" default-value="">
               <documentation />
             </parameter>
           </parameters>
@@ -468,6 +521,10 @@
       <style class="default" />
       <attributes>
         <attribute id="" name="towers" type="Tower[3]" type-id="Tower[3]" visibility="private" abstract="false" virtual="false" default-value="">
+          <stereotypes />
+          <documentation />
+        </attribute>
+        <attribute id="" name="nbDisks" type="int" type-id="int" visibility="private" abstract="false" virtual="false" default-value="">
           <stereotypes />
           <documentation />
         </attribute>
@@ -598,10 +655,10 @@
 </documentation>
         <layer name="Default" visible="true" enabled="true" locked="false">
           <item id="di855803818871989209" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="1474" y1="268" x2="1601" y2="106">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="1482" y1="268" x2="1604" y2="106">
               <points>
-                <point x="1474" y="268" />
-                <point x="1601" y="106" />
+                <point x="1482" y="268" />
+                <point x="1604" y="106" />
               </points>
             </layout>
             <relation from="di767206065361629935" to="di688138813942401208" />
@@ -636,7 +693,7 @@
             <layout ax="1298" ay="209" awidth="229" aheight="249" x="1298" y="209" width="229" height="249" />
           </item>
           <item id="di767206065361629935" container="di565324033484660392" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="1333" ay="268" awidth="150" aheight="170" x="1333" y="268" width="0" height="0" />
+            <layout ax="1333" ay="268" awidth="170" aheight="170" x="1333" y="268" width="170" height="0" />
             <class />
           </item>
           <item id="di699161422538403915" container="di897768975496410271" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
@@ -672,7 +729,7 @@
             <class />
           </item>
           <item id="di140578570167052464" container="di925040645232202115" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="975" ay="9" awidth="150" aheight="170" x="975" y="9" width="0" height="0" />
+            <layout ax="947" ay="10" awidth="206" aheight="170" x="947" y="10" width="206" height="0" />
             <class />
           </item>
           <item id="di883961475482793801" container="di925040645232202115" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
@@ -693,10 +750,10 @@
             <relation from="di883961475482793801" to="di767206065361629935" />
           </item>
           <item id="di867096208908536491" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="1049" y1="254" x2="1049" y2="179">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="1049" y1="254" x2="1049" y2="180">
               <points>
                 <point x="1049" y="254" />
-                <point x="1049" y="179" />
+                <point x="1049" y="180" />
               </points>
             </layout>
             <relation from="di883961475482793801" to="di140578570167052464" />
