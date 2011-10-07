@@ -56,6 +56,8 @@ public class AppFrame extends JFrame implements ComponentListener
 	 * Cette méthode doit être publique mais ne devrait pas être appelée directement.
 	 * 
 	 * @see java.awt.Window#paint(java.awt.Graphics)
+	 * 
+	 * @param g Graphics de la fenêtre
 	 */
 	@Override
 	public void paint(Graphics g)
@@ -69,6 +71,8 @@ public class AppFrame extends JFrame implements ComponentListener
 	 * Cette méthode doit être publique mais ne devrait pas être appelée directement.
 	 * 
 	 * @see java.awt.event.ComponentListener#componentHidden(java.awt.event.ComponentEvent)
+	 * 
+	 * @param e événement déclencheur
 	 */
 	@Override
 	public void componentHidden(ComponentEvent e)
@@ -80,6 +84,8 @@ public class AppFrame extends JFrame implements ComponentListener
 	 * Cette méthode doit être publique mais ne devrait pas être appelée directement.
 	 * 
 	 * @see java.awt.event.ComponentListener#componentMoved(java.awt.event.ComponentEvent)
+	 * 
+	 * @param e événement déclencheur
 	 */
 	@Override
 	public void componentMoved(ComponentEvent e)
@@ -92,6 +98,8 @@ public class AppFrame extends JFrame implements ComponentListener
 	 * Cette méthode doit être publique mais ne devrait pas être appelée directement.
 	 * 
 	 * @see java.awt.event.ComponentListener#componentResized(java.awt.event.ComponentEvent)
+	 * 
+	 * @param e événement déclencheur
 	 */
 	@Override
 	public void componentResized(ComponentEvent e)
@@ -122,6 +130,8 @@ public class AppFrame extends JFrame implements ComponentListener
 	 * Cette méthode doit être publique mais ne devrait pas être appelée directement.
 	 * 
 	 * @see java.awt.event.ComponentListener#componentShown(java.awt.event.ComponentEvent)
+	 * 
+	 * @param e événement déclencheur
 	 */
 	@Override
 	public void componentShown(ComponentEvent e)

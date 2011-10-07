@@ -17,6 +17,9 @@ import appHanoi.model.Game;
  */
 public class GameTest
 {
+	/**
+	 * 	Méthode de test pour {@link appHanoi.model.Game#Game()}
+	 */
 	@Test
 	public void testGame()
 	{
@@ -51,6 +54,9 @@ public class GameTest
 		Assert.assertFalse(g.isOver());
 	}
 
+	/**
+	 * 	Méthode de test pour {@link appHanoi.model.Game#getNbDisks()}
+	 */
 	@Test
 	public void testGetNbDisks()
 	{
@@ -75,8 +81,11 @@ public class GameTest
 		Assert.assertEquals(3, g.getNbDisks());
 	}
 	
+	/**
+	 * 	Méthode de test pour {@link appHanoi.model.Game#moveDisk(int, int)}
+	 */
 	@Test
-	public void testMoveDisk()
+	public void testMoveDiskIntInt()
 	{
 		// Cas valide 1 : La tour de départ est différente de celle d'arrivé,
 		// la tour d'arrivé et de départ est dans l'intervalle [0, 2], la 
@@ -108,6 +117,9 @@ public class GameTest
 		Assert.assertFalse(g.moveDisk(0, 1));
 	}
 
+	/**
+	 * 	Méthode de test pour {@link appHanoi.model.Game#redraw(java.awt.Graphics)}
+	 */
 	@Test
 	public void testRedraw() 
 	{
@@ -124,6 +136,9 @@ public class GameTest
 		g.redraw(null);
 	}
 
+	/**
+	 * 	Méthode de test pour {@link appHanoi.model.Game#isOver()}
+	 */
 	@Test
 	public void testIsOver()
 	{

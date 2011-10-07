@@ -252,7 +252,14 @@ public class GameBoard extends JPanel implements ActionListener
 		this.tower3Button.setText("Tour 3");
 	}
 
-	// Reçoit et traite les événements relatifs aux boutons
+	/**
+	 * Reçoit et traite les événements relatifs aux boutons
+	 * Cette méthode doit être publique mais ne devrait pas être appelée directement.
+	 * 
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 * 
+	 * @param evt événement déclencheur
+	 */
 	public void actionPerformed(ActionEvent evt)
 	{
 		// Si c'est le bouton d'une tour pour indiquer la tour d'origine d'un déplacement

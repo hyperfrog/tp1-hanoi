@@ -19,8 +19,7 @@ public class StackTest
 {
 
 	/**
-	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#ImplStack()}.
-	 * Méthode de test pour {@link util.collection.arrayStack.ImplStack#ImplStack()}.
+	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#ImplStack()} et {@link util.collection.arrayStack.ImplStack#ImplStack()}.
 	 */	
 	@Test
 	public void testStack()
@@ -33,8 +32,7 @@ public class StackTest
 	}
 
 	/**
-	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#push(java.lang.Object)}.
-	 * Méthode de test pour {@link util.collection.arrayStack.ImplStack#push(java.lang.Object)}.
+	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#push(java.lang.Object)} et {@link util.collection.arrayStack.ImplStack#push(java.lang.Object)}.
 	 */	
 	@Test
 	public void testPushObject()
@@ -67,8 +65,7 @@ public class StackTest
 	}
 
 	/**
-	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#pop()}.
-	 * Méthode de test pour {@link util.collection.arrayStack.ImplStack#pop()}.
+	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#pop()} et {@link util.collection.arrayStack.ImplStack#pop()}.
 	 */	
 	@Test
 	public void testPop()
@@ -95,8 +92,7 @@ public class StackTest
 	}
 
 	/**
-	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#size()}.
-	 * Méthode de test pour {@link util.collection.arrayStack.ImplStack#size()}.
+	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#size()} et {@link util.collection.arrayStack.ImplStack#size()}.
 	 */	
 	@Test
 	public void testSize()
@@ -128,8 +124,7 @@ public class StackTest
 	}
 
 	/**
-	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#isEmpty()}.
-	 * Méthode de test pour {@link util.collection.arrayStack.ImplStack#isEmpty()}.
+	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#isEmpty()} et {@link util.collection.arrayStack.ImplStack#isEmpty()}.
 	 */	
 	@Test
 	public void testIsEmpty()
@@ -145,8 +140,7 @@ public class StackTest
 	}
 
 	/**
-	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#clear()}.
-	 * Méthode de test pour {@link util.collection.arrayStack.ImplStack#clear()}.
+	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#clear()} et {@link util.collection.arrayStack.ImplStack#clear()}.
 	 */	
 	@Test
 	public void testClear()
@@ -161,8 +155,7 @@ public class StackTest
 	}
 
 	/**
-	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#peek()}.
-	 * Méthode de test pour {@link util.collection.arrayStack.ImplStack#peek()}.
+	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#peek()} et {@link util.collection.arrayStack.ImplStack#peek()}.
 	 */	
 	@Test
 	public void testPeek()
@@ -182,8 +175,7 @@ public class StackTest
 	}
 
 	/**
-	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#search(java.lang.Object)}.
-	 * Méthode de test pour {@link util.collection.arrayStack.ImplStack#search(java.lang.Object)}.
+	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#search(java.lang.Object)} et {@link util.collection.arrayStack.ImplStack#search(java.lang.Object)}.
 	 */	
 	@Test
 	public void testSearchObject()
@@ -208,8 +200,7 @@ public class StackTest
 	}
 
 	/**
-	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#get(int)}.
-	 * Méthode de test pour {@link util.collection.arrayStack.ImplStack#get(int)}.
+	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#get(int)} e {@link util.collection.arrayStack.ImplStack#get(int)}.
 	 */	
 	@Test
 	public void testGetInt()
@@ -240,8 +231,7 @@ public class StackTest
 	}
 
 	/**
-	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#toString()}.
-	 * Méthode de test pour {@link util.collection.arrayStack.ImplStack#toString()}.
+	 * Méthode de test pour {@link util.collection.linkedStack.ImplStack#toString()} et {@link util.collection.arrayStack.ImplStack#toString()}.
 	 */	
 	@Test
 	public void testToString()
