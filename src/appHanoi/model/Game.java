@@ -38,7 +38,7 @@ public class Game
 	{
 		this.towers = new Tower[Game.NB_TOWERS];
 		
-		this.nbDisks = (nbDisks >= 3 && nbDisks <=64) ? nbDisks : 3;
+		this.nbDisks = (nbDisks >= 3 && nbDisks <= 64) ? nbDisks : 3;
 		
 		this.isOver = false;
 		

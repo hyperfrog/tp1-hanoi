@@ -3,6 +3,7 @@ package appHanoi.form;
 import appHanoi.model.Game;
 
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -18,8 +19,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * À MODIFIER ET COMPLÉTER: code, javadoc, standards (static/final),
- * commentaires
+ * La classe GameBoard sert à l'interface du jeu des tours de Hanoi.
+ * C'est elle qui gère les évènements de l'interface utilisateur.
+ * 
+ * @author Christian Lesage
+ * @author Alexandre Tremblay
+ *
  */
 public class GameBoard extends JPanel implements ActionListener
 {
@@ -135,8 +140,9 @@ public class GameBoard extends JPanel implements ActionListener
 			else
 			{
 				this.message.setText("Partie terminée !");
+				this.blockButtons();
 			}
-
+			
 			this.redraw();
 		}
 		else
@@ -161,7 +167,7 @@ public class GameBoard extends JPanel implements ActionListener
 			this.currentGame.redraw(g);
 		}		
 	}
-
+	
 	// Réinitialise la partie
 	private void replay()
 	{
@@ -187,9 +193,16 @@ public class GameBoard extends JPanel implements ActionListener
 			});
 			
 			solverThread.start();
+			this.blockButtons();
 		}
-
-		
+	}
+	
+	// Bloque les boutons des tours
+	private void blockButtons()
+	{
+		this.tower1Button.setEnabled(false);
+		this.tower2Button.setEnabled(false);
+		this.tower3Button.setEnabled(false);
 	}
 	
 	// Réinitialise les boutons des tours 
@@ -198,7 +211,7 @@ public class GameBoard extends JPanel implements ActionListener
 		this.tower1Button.setEnabled(!this.currentGame.isOver());
 		this.tower2Button.setEnabled(!this.currentGame.isOver());
 		this.tower3Button.setEnabled(!this.currentGame.isOver());
-
+		
 		this.tower1Button.setActionCommand("1");
 		this.tower1Button.setText("Tour 1");
 		
@@ -240,10 +253,21 @@ public class GameBoard extends JPanel implements ActionListener
 		}
 		else if (evt.getActionCommand().equals("REPLAY"))
 		{
-			this.replay();
+			int response = 0;
+			
+			if (!this.currentGame.isOver())
+			{
+				response = JOptionPane.showConfirmDialog(this, "Êtes-vous sûr de vouloir commencer une nouvelle partie ? \nLa partie courante sera perdue.",
+					"Confirmation", JOptionPane.YES_NO_OPTION);
+			}
+			
+			if (response == 0)
+			{
+				this.replay();
+			}
 		}
 	}
-
+	
 	// Résout une partie
 	private void solve(Thread t)
 	{
@@ -291,7 +315,6 @@ public class GameBoard extends JPanel implements ActionListener
 		}
 		catch (InterruptedException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -36,7 +36,7 @@ public class MainApp
 		classesToTest.add("util.collection.test.NodeTest");
 		classesToTest.add("util.collection.test.StackTest");
 		classesToTest.add("appHanoi.model.test.TowerTest");
-//		classesToTest.add("appHanoi.model.test.GameTest");
+		classesToTest.add("appHanoi.model.test.GameTest");
 		
 		for(String className : classesToTest)
 		{
