@@ -16,14 +16,15 @@ import appHanoi.form.AppFrame;
  * @author Alexandre Tremblay
  *
  */
-
+	
 public class MainApp
 {
 	/**
 	 * Point d'entrée du programme.
-	 * Lance les tests, puis crée une fenêtre et la rend visible si tous les tests ont réussi.
+	 * Lance les tests et affiche un message d'erreur si un ou plusieurs tests échouent. 
+	 * Si tous les tests réussissent, crée et rend visible la fenêtre du jeu.
 	 * 
-	 * @param args
+	 * @param args paramètres reçus en ligne de commande (non utilisés) 
 	 */
 	public static void main(String[] args)
 	{
@@ -32,31 +33,23 @@ public class MainApp
 		boolean error = false;
 		String errMsg = "";
 		
-		ArrayList<String> classesToTest = new ArrayList<String>();
-		classesToTest.add("util.collection.test.NodeTest");
-		classesToTest.add("util.collection.test.StackTest");
-		classesToTest.add("appHanoi.model.test.TowerTest");
-		classesToTest.add("appHanoi.model.test.GameTest");
-		
-		for(String className : classesToTest)
-		{
-			try
-			{
-				Result result = junit.run(Class.forName(className));
+		ArrayList<Class<?>> classesToTest = new ArrayList<Class<?>>();
+		classesToTest.add(util.collection.test.NodeTest.class);
+		classesToTest.add(util.collection.test.StackTest.class);
+		classesToTest.add(appHanoi.model.test.TowerTest.class);
+		classesToTest.add(appHanoi.model.test.GameTest.class);
 
-				if (result.getFailureCount() > 0)
-				{
-					errMsg += String.format("Les tests de la classe %s ont produit %d erreur(s).\n", className, result.getFailureCount());
-					error = true;
-				}
-			}
-			catch (ClassNotFoundException e1)
+		for(Class<?> someClass : classesToTest)
+		{
+			Result result = junit.run(someClass);
+
+			if (result.getFailureCount() > 0)
 			{
-				errMsg += String.format("Erreur: Aucune classe nommée «%s».\n", className);
+				errMsg += String.format("Les tests de la classe %s ont produit %d erreur(s).\n", someClass.getName(), result.getFailureCount());
 				error = true;
 			}
 		}
-		
+
 		if (!error)
 		{
 			AppFrame appFrame = new AppFrame();
@@ -66,10 +59,9 @@ public class MainApp
 		{
 			JOptionPane.showMessageDialog(
 					null, 
-					errMsg + "\nL'application ne peut pas démarrer. Vous ne devriez pas blâmer les programmeurs, car vous ne les avez pas payés.\n", 
+					errMsg + "\nL'application ne peut pas démarrer !\n\nVous ne devriez pas blâmer les programmeurs, car ils n'ont pas été payés.\n", 
 					"Erreur fatale", 
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
 }

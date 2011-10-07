@@ -19,8 +19,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * La classe GameBoard sert à l'interface du jeu des tours de Hanoi.
+ * La classe GameBoard gère l'interface du jeu des tours de Hanoi.
  * C'est elle qui gère les évènements de l'interface utilisateur.
+ * Elle contient aussi la logique du solutionneur automatisé.
  * 
  * @author Christian Lesage
  * @author Alexandre Tremblay
@@ -28,105 +29,129 @@ import java.awt.event.ActionListener;
  */
 public class GameBoard extends JPanel implements ActionListener
 {
+	// Objet de la partie courante
 	private Game currentGame = null;
-	
-	private JLabel message;
+
+	// Label pour l'affichage de messages  
+	private JLabel messageLabel;
+
+	// Panel contenant tous les panels contenant des boutons 
     private JPanel buttonPanel;
-    private JPanel towerButtonPanel;	
-    private JPanel otherButtonPanel;
+    
+	// Panel contenant les boutons des tour
+    private JPanel towerButtonsPanel;	
+
+    // Panel contenant les «autres» contrôles 
+    private JPanel otherControlsPanel;
+    
+    // Panel pour l'affichage des tours
     private JPanel gamePanel;
+    
+    // Panel contenant le label pour l'affichage
     private JPanel messagePanel;
-//    private JButton cancelButton;
+
+    // Bouton pour commencer une nouvelle partie 
     private JButton replayButton;
+
+    // Bouton de la tour 1 
     private JButton tower1Button;
+
+    // Bouton de la tour 2 
     private JButton tower2Button;
+
+    // Bouton de la tour 3 
     private JButton tower3Button;
+
+    // Checkbox pour la résolution automatique 
     private JCheckBox autoSolveCheckBox;
+
+    // Label affiché à côté du spinner pour spécifier le nombre de disques  
     private JLabel nbDisksLabel;
+
+    // Spinner pour spécifier le nombre de disques  
     private JSpinner nbDisksSpinner;
     
-	private boolean waitingForSelection = false;
+	// Indique qu'une première tour a été sélectionnée 
+    private boolean waitingForSelection = false;
+    
+    // Contient la tour de départ d'un déplacement  
 	private int fromTower;
 
+	// Référence au thread du solutionneur
 	private volatile Thread solverThread = null;
 	
 	/**
 	 * Construit un plateau de jeu.
-	 * Une partie initiale est aussi créée avec 3 disques. 
+	 * Une partie initiale est aussi créée avec 5 disques. 
 	 */
 	public GameBoard()
 	{
 		super();
 
-        this.buttonPanel = new JPanel();
-        this.towerButtonPanel = new JPanel();
-        this.otherButtonPanel = new JPanel();
+        // Initialise les composantes
+		this.buttonPanel = new JPanel();
+        this.towerButtonsPanel = new JPanel();
+        this.otherControlsPanel = new JPanel();
         this.gamePanel = new JPanel();
 		this.messagePanel = new JPanel();
         this.tower1Button = new JButton();
         this.tower2Button = new JButton();
         this.tower3Button = new JButton();
-//        cancelButton = new JButton();
         this.replayButton = new JButton();
+        this.messageLabel = new JLabel();
+        this.nbDisksLabel = new JLabel();
+        this.autoSolveCheckBox = new JCheckBox();
+
+        // Entre 3 et 64 disques, 5 par défaut, incrément de 1
         SpinnerModel sm = new SpinnerNumberModel(5, 3, 64, 1);
-        nbDisksSpinner = new javax.swing.JSpinner(sm);
-        nbDisksLabel = new javax.swing.JLabel();
-        autoSolveCheckBox = new javax.swing.JCheckBox();
-        
-        this.message = new JLabel();
+        nbDisksSpinner = new JSpinner(sm);
 
         this.setLayout(new BorderLayout());
         this.add(gamePanel, BorderLayout.CENTER);
         this.gamePanel.setBackground(Color.WHITE);
 
-		this.messagePanel.add(this.message);
+		this.messagePanel.add(this.messageLabel);
 		this.messagePanel.setBackground(Color.WHITE);
-		this.message.setForeground(Color.red);
+		this.messageLabel.setForeground(Color.red);
 		this.add(messagePanel, BorderLayout.NORTH);
 
-//        towerButtonPanel.setRequestFocusEnabled(false);
+        // Layout à 3 colonnes pour les boutons des tours
+		this.towerButtonsPanel.setLayout(new GridLayout(0, 3));
 
-        this.towerButtonPanel.setLayout(new GridLayout(0, 3));
-
-		this.tower1Button.addActionListener(this);
-		this.tower2Button.addActionListener(this);
-		this.tower3Button.addActionListener(this);
-
-		this.towerButtonPanel.add(tower1Button);
-		this.towerButtonPanel.add(tower2Button);
-		this.towerButtonPanel.add(tower3Button);
-		
-//		this.cancelButton.setActionCommand("CANCEL");
-//		this.cancelButton.addActionListener(this);
-		
-		this.replayButton.setActionCommand("REPLAY");
-		this.replayButton.addActionListener(this);
+		this.towerButtonsPanel.add(tower1Button);
+		this.towerButtonsPanel.add(tower2Button);
+		this.towerButtonsPanel.add(tower3Button);
 		
         buttonPanel.setLayout(new BorderLayout());
         
-        buttonPanel.add(towerButtonPanel, BorderLayout.PAGE_START);
+        buttonPanel.add(towerButtonsPanel, BorderLayout.PAGE_START);
 
-//        cancelButton.setText("Annuler déplacement");
-//        otherButtonPanel.add(cancelButton);
-
+		replayButton.setActionCommand("REPLAY");
         replayButton.setText("Nouvelle partie");
-        otherButtonPanel.add(replayButton);
-        otherButtonPanel.add(nbDisksSpinner);
+        otherControlsPanel.add(replayButton);
+        otherControlsPanel.add(nbDisksSpinner);
         nbDisksLabel.setText("disques");
-        otherButtonPanel.add(nbDisksLabel);
+        otherControlsPanel.add(nbDisksLabel);
         autoSolveCheckBox.setText("Résoudre");
-        otherButtonPanel.add(autoSolveCheckBox);
+        otherControlsPanel.add(autoSolveCheckBox);
 
-
-        buttonPanel.add(otherButtonPanel, BorderLayout.PAGE_END);
+        buttonPanel.add(otherControlsPanel, BorderLayout.PAGE_END);
 
         this.add(buttonPanel, BorderLayout.PAGE_END);
-        
+
+		// Spécifie les écouteurs pour les boutons
+        this.tower1Button.addActionListener(this);
+		this.tower2Button.addActionListener(this);
+		this.tower3Button.addActionListener(this);
+		this.replayButton.addActionListener(this);
+
+        // Replay va se charger de créer une nouvelle partie 
         this.replay();
 	}
 
-	// Déplace un disque de la tour from vers la tour to
-	// Suppose que la première tour est la tour 1
+	// Déplace un disque de la tour «from» vers la tour «to».
+	// Suppose que la première tour est la tour 1.
+	// Retourne vrai si le déplacement est valide, faux sinon.
 	private boolean moveDisk(int from, int to)
 	{
 		boolean diskMoved = this.currentGame.moveDisk(from - 1, to - 1);
@@ -135,19 +160,20 @@ public class GameBoard extends JPanel implements ActionListener
 		{
 			if (!this.currentGame.isOver())
 			{
-				this.message.setText(String.format("Disque déplacé de la tour %s vers la tour %s.", from , to));
+				this.messageLabel.setText(String.format("Disque déplacé de la tour %s vers la tour %s.", from , to));
 			}
 			else
 			{
-				this.message.setText("Partie terminée !");
-				this.blockButtons();
+				this.messageLabel.setText("Partie terminée !");
+				// Empêche le joueur de faire un déplacement subséquent
+				this.disableButtons();
 			}
 			
 			this.redraw();
 		}
 		else
 		{
-			this.message.setText(String.format("Déplacement impossible de la tour %s vers la tour %s.", from , to));
+			this.messageLabel.setText(String.format("Déplacement impossible de la tour %s vers la tour %s.", from , to));
 		}
 
 		return diskMoved;
@@ -173,18 +199,22 @@ public class GameBoard extends JPanel implements ActionListener
 	{
 		solverThread = null;
 		
+		// Obtient le nombre de disques souhaité pour la nouvelle partie
 		SpinnerNumberModel sm = (SpinnerNumberModel)nbDisksSpinner.getModel();
 		int nbDisks = sm.getNumber().intValue();
 		
+		// Crée une nouvelle partie
 		this.currentGame = new Game(nbDisks);
 		this.redraw();
-		this.message.setText("Prêt!");
+		this.messageLabel.setText("Prêt!");
 		this.resetButtons();
 
+		// Si la résolution automatique est souhaitée
 		if (autoSolveCheckBox.isSelected())
 		{
 			final GameBoard gb = this;
 			
+			// Lance le solutionneur dans un nouveau thread
 			solverThread = new Thread(new Runnable(){
 				public void run()
 				{
@@ -193,12 +223,12 @@ public class GameBoard extends JPanel implements ActionListener
 			});
 			
 			solverThread.start();
-			this.blockButtons();
+			this.disableButtons();
 		}
 	}
 	
 	// Bloque les boutons des tours
-	private void blockButtons()
+	private void disableButtons()
 	{
 		this.tower1Button.setEnabled(false);
 		this.tower2Button.setEnabled(false);
@@ -225,42 +255,49 @@ public class GameBoard extends JPanel implements ActionListener
 	// Reçoit et traite les événements relatifs aux boutons
 	public void actionPerformed(ActionEvent evt)
 	{
+		// Si c'est le bouton d'une tour pour indiquer la tour d'origine d'un déplacement
 		if (evt.getActionCommand().equals("1") || evt.getActionCommand().equals("2") || evt.getActionCommand().equals("3"))
 		{
 			JButton bSrc = (JButton) evt.getSource();
 			
+			// Si une première tour a déjà été sélectionnée
 			if (waitingForSelection)
 			{
+				// Tente d'effectuer le déplacement
 				this.moveDisk(this.fromTower, Integer.parseInt(evt.getActionCommand()));
 				this.resetButtons();
 			}
 			else
 			{
+				// Mémorise la tour d'origine du déplacement
 				this.fromTower = Integer.parseInt(evt.getActionCommand());
-//				bSrc.setEnabled(false);
+				this.messageLabel.setText(String.format("Déplacement de la tour %s vers la tour...", evt.getActionCommand()));
+				// Transforme le bouton en bouton d'annulation du déplacement
 				bSrc.setText("Annuler");
 				bSrc.setActionCommand("CANCEL");
-				this.message.setText(String.format("Déplacement de la tour %s vers la tour...", evt.getActionCommand()));
 			}
 			
 			waitingForSelection = !waitingForSelection;
 		}
-		else if (evt.getActionCommand().equals("CANCEL"))
+		// Si c'est le bouton d'une tour pour indiquer l'annulation d'un déplacement
+		else if (evt.getActionCommand().equals("CANCEL")) 
 		{
 			this.waitingForSelection = false;
 			this.resetButtons();
-			this.message.setText("Déplacement annulé.");
+			this.messageLabel.setText("Déplacement annulé.");
 		}
+		// Si c'est le bouton pour commencer une nouvelle partie
 		else if (evt.getActionCommand().equals("REPLAY"))
 		{
 			int response = 0;
 			
+			// Demande une confirmation si une partie est en cours
 			if (!this.currentGame.isOver())
 			{
 				response = JOptionPane.showConfirmDialog(this, "Êtes-vous sûr de vouloir commencer une nouvelle partie ? \nLa partie courante sera perdue.",
 					"Confirmation", JOptionPane.YES_NO_OPTION);
 			}
-			
+			// Si le joueur est certain de vouloir recommencer 
 			if (response == 0)
 			{
 				this.replay();
@@ -271,9 +308,12 @@ public class GameBoard extends JPanel implements ActionListener
 	// Résout une partie
 	private void solve(Thread t)
 	{
+		// Mémorise la tour contenant le petit disque
 		int smallDiskTowerNum = 1;
 		
 		sleep(500);
+		// Alterne entre le déplacement du petit disque et celui d'un autre disque
+		// jusqu'à ce que la partie soit terminée
 		for (int n = 1; !this.currentGame.isOver() && t == solverThread; n++)		
 		{
 			if (n % 2 == 1) // Déplace le petit disque 
@@ -294,14 +334,18 @@ public class GameBoard extends JPanel implements ActionListener
 			}
 			else // Déplace un «gros» disque (diamètre > 1)
 			{
+				// Le déplacement concerne les des deux tours différentes de celle du petit disque  
 				int tower1 = smallDiskTowerNum == 3 ? 1 : smallDiskTowerNum + 1;
 				int tower2 = smallDiskTowerNum == 1 ? 3 : smallDiskTowerNum - 1;
 				
+				// Tente un déplacement
 				if (!moveDisk(tower1, tower2))
 				{
+					// Mauvais choix... Essaie dans l'autre sens.
 					moveDisk(tower2, tower1);
 				}
 			}
+			// Donne la chance au joueur de voir ce qui s'est passé.
 			sleep(500);
 		}
 	}

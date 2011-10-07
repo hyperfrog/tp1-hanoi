@@ -48,15 +48,6 @@ public class Disk
 		return diameter;
 	}
 
-//	/**
-//	 * Établit le diamètre du disque à la valeur spécifiée.
-//	 * @param diameter le nouveau diamètre 
-//	 */
-//	public void setDiameter(int diameter)
-//	{
-//		this.diameter = diameter;
-//	}
-
 	/**
 	 * Retourne la couleur du disque
 	 * 
@@ -67,16 +58,6 @@ public class Disk
 		return color;
 	}
 
-//	/**
-//	 * Établit la couleur du disque.
-//	 * 
-//	 * @param color la nouvelle couleur du disque
-//	 */
-//	public void setColor(Color color)
-//	{
-//		this.color = color;
-//	}
-    
 	/**
 	 * Dessine le disque dans le Graphics spécifié
 	 *  

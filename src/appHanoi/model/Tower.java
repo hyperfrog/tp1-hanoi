@@ -39,6 +39,8 @@ public class Tower extends ImplStack
 	 * Un disque peut être empilé seulement s'il est plus petit que le disque sur le dessus 
 	 * de la pile ou si la pile est vide.
 	 * 
+	 * Un élément null ne peut pas être empilé.
+	 * 
 	 * @param element le disque à empiler
 	 * @return le disque empilé si l'opération a réussi, sinon null 
 	 */
@@ -48,12 +50,16 @@ public class Tower extends ImplStack
 
 		if (element != null)
 		{
+			// Si la tour est vide
 			if (this.isEmpty())
 			{
+				// Empile le disque
 				d = (Disk)super.push(element);
 			}
 			else if (this.peek() instanceof Disk)
 			{
+				// Empile le disque seulement si son diamètre est inférieur 
+				// à celui du disque sur le dessus de la pile
 				int diskOnTopDiameter = ((Disk)this.peek()).getDiameter();
 				if (element.getDiameter() < diskOnTopDiameter)
 				{

@@ -18,12 +18,19 @@ import javax.swing.JFrame;
 
 public class AppFrame extends JFrame implements ComponentListener
 {
+	// Dimension initiale de la fenêtre
 	private static final Dimension INIT_SIZE = new Dimension(800, 450);
+	
+	// Largeur minimale de la fenêtre
 	private static final int MIN_WIDTH = 320;
+
+	// Hauteur minimale de la fenêtre
 	private static final int MIN_HEIGHT = 240;
 	
+	// Titre de la fenêtre
 	private static final String INIT_TITLE = "Tours de Hanoi par Alexandre Tremblay et Christian Lesage";
 
+	// Objet du plateau de jeu
 	private GameBoard gameBoard;
 	
 	/**
@@ -36,16 +43,18 @@ public class AppFrame extends JFrame implements ComponentListener
 		this.setTitle(AppFrame.INIT_TITLE);
 		this.setSize(AppFrame.INIT_SIZE);
 		this.setLocationRelativeTo(null);
-//		this.setResizable(false);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.gameBoard = new GameBoard();
 		this.getContentPane().add(this.gameBoard);
 		this.addComponentListener(this);
-//		this.pack();
 		
 	}
-	/* (non-Javadoc)
+	
+	/**
+	 * Redessine la fenêtre.
+	 * Cette méthode doit être publique mais ne devrait pas être appelée directement.
+	 * 
 	 * @see java.awt.Window#paint(java.awt.Graphics)
 	 */
 	@Override
@@ -55,7 +64,10 @@ public class AppFrame extends JFrame implements ComponentListener
 		this.gameBoard.redraw();
 	}
 
-	/* (non-Javadoc)
+	/** 
+	 * Méthode appelée quand la fenêtre est cachée.
+	 * Cette méthode doit être publique mais ne devrait pas être appelée directement.
+	 * 
 	 * @see java.awt.event.ComponentListener#componentHidden(java.awt.event.ComponentEvent)
 	 */
 	@Override
@@ -63,7 +75,10 @@ public class AppFrame extends JFrame implements ComponentListener
 	{
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * Méthode appelée quand la fenêtre est déplacée.
+	 * Cette méthode doit être publique mais ne devrait pas être appelée directement.
+	 * 
 	 * @see java.awt.event.ComponentListener#componentMoved(java.awt.event.ComponentEvent)
 	 */
 	@Override
@@ -71,7 +86,11 @@ public class AppFrame extends JFrame implements ComponentListener
 	{
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * Méthode appelée quand la fenêtre est redimensionnée.
+	 * On s'assure que ses dimensions respectent la largeur et la hauteur minimales permises.
+	 * Cette méthode doit être publique mais ne devrait pas être appelée directement.
+	 * 
 	 * @see java.awt.event.ComponentListener#componentResized(java.awt.event.ComponentEvent)
 	 */
 	@Override
@@ -98,7 +117,10 @@ public class AppFrame extends JFrame implements ComponentListener
 		}
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * Méthode appelée quand la fenêtre est affichée.
+	 * Cette méthode doit être publique mais ne devrait pas être appelée directement.
+	 * 
 	 * @see java.awt.event.ComponentListener#componentShown(java.awt.event.ComponentEvent)
 	 */
 	@Override

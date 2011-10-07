@@ -78,7 +78,6 @@ public class Game
 				c = Color.YELLOW;
 				break;
 		}
-		
 		return c;
 	}
 	
@@ -110,16 +109,20 @@ public class Game
 	{
 		boolean succeeded = false;
 		
+		// Si les paramètres d'entrée sont valides
 		if ((fromTower >= 0 && fromTower < Game.NB_TOWERS) 
 				&& (toTower >= 0 && toTower < Game.NB_TOWERS) 
 				&& fromTower != toTower)
 		{
+			// Si la tour d'origine n'est pas vide
 			if (this.towers[fromTower].peek() != null)
 			{
 				Disk d = (Disk) this.towers[fromTower].peek();
 				
+				// Si le disque de la tour d'origine peut être empilé sur la tour de destination
 				if (this.towers[toTower].push(d) != null)
 				{
+					// Enlève le disque de la tour d'origine
 					this.towers[fromTower].pop();
 					succeeded = true;
 					
@@ -146,14 +149,19 @@ public class Game
 		{
 			Rectangle r = g.getClipBounds();
 
+			// Efface toute la surface
 			g.setColor(Color.WHITE);
 			g.fillRect(r.x, r.y, r.width, r.height);
 
+			// Détermine la largeur de la zone de chaque tour
 			float towerZoneWidth = (float)r.width / NB_TOWERS; 
 
+			// Dessine chacune des tours
 			for (int i = 0; i < NB_TOWERS; i++)
 			{
-				towers[i].redraw(g.create(Math.round(i * towerZoneWidth), r.y, Math.round(towerZoneWidth), r.height), this.nbDisks);
+				// Crée un «sous graphics» pour la tour
+				Graphics g2 = g.create(Math.round(i * towerZoneWidth), r.y, Math.round(towerZoneWidth), r.height);
+				towers[i].redraw(g2, this.nbDisks);
 			}
 		}
 	}
