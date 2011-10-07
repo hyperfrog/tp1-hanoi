@@ -1,5 +1,6 @@
 package appHanoi.form;
 
+import appHanoi.model.Disk;
 import appHanoi.model.Game;
 
 import javax.swing.JPanel;
@@ -9,20 +10,20 @@ import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Color;
-//import java.awt.Dimension;
 import java.awt.Graphics;
-//import java.awt.Point;
-//import java.awt.Rectangle;
-//import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 /**
  * À MODIFIER ET COMPLÉTER: code, javadoc, standards (static/final),
  * commentaires
  */
-public class GameBoard extends JPanel implements ActionListener
+public class GameBoard extends JPanel implements ActionListener, KeyListener
 {
 	private Game currentGame = null;
 	
@@ -40,6 +41,9 @@ public class GameBoard extends JPanel implements ActionListener
 	
 	private boolean waitingForSelection = false;
 	private int fromTower;
+	private boolean isShiftDown = false;
+	
+	private volatile Thread solverThread = null;
 	
 	/**
 	 * Construit un plateau de jeu.
@@ -105,6 +109,8 @@ public class GameBoard extends JPanel implements ActionListener
         buttonPanel.add(otherButtonPanel, BorderLayout.PAGE_END);
 
         this.add(buttonPanel, BorderLayout.PAGE_END);
+        
+        this.replayButton.addKeyListener(this);
 	}
 
 	// Déplace un disque de la tour from vers la tour to
@@ -126,14 +132,12 @@ public class GameBoard extends JPanel implements ActionListener
 			this.message.setText(String.format("Déplacement impossible de la tour %s vers la tour %s.", from , to));
 		}
 
-//		this.resetButtons();
 		this.redraw();
-		// this.repaint();
 	}
 	
 	/**
 	 * Redessine le plateau de jeu.
-	 * Vous n'avez pas à appeler cette méthode directement.
+	 * Vous ne devriez pas à appeler cette méthode directement.
 	 * Sa visibilité est à «package» pour que AppFrame puisse l'appeler.   
 	 */
 	void redraw()
@@ -149,12 +153,11 @@ public class GameBoard extends JPanel implements ActionListener
 	// Réinitialise la partie
 	private void replay()
 	{
-		this.message.setText("Prêt!");
-
-		this.currentGame = new Game(10); // TODO : Demander le nombre de disques au joueur
-	
-		this.redraw();
+		solverThread = null;
 		
+		this.currentGame = new Game(4); // TODO : Demander le nombre de disques au joueur
+		this.redraw();
+		this.message.setText("Prêt!");
 		this.resetButtons();
 	}
 	
@@ -207,7 +210,175 @@ public class GameBoard extends JPanel implements ActionListener
 		else if (evt.getActionCommand().equals("REPLAY"))
 		{
 			this.replay();
+			if (this.isShiftDown)
+			{
+				this.isShiftDown = false;
+
+				final GameBoard gb = this;
+				
+				solverThread = new Thread(new Runnable(){
+					public void run()
+					{
+						gb.solve(solverThread);
+					}
+				});
+				
+				solverThread.start();
+//				this.solve();
+			}
 		}
+	}
+
+	// Résout une partie
+	private void solve(Thread t)
+	{
+		// Direction du déplacement du disque de diamètre 1
+		final int direction = (this.currentGame.getNbDisks() % 2 == 0) ? 1 : -1;
+		
+		// Séquence des disques à déplacer (identifiés par leur diamètre)
+		ArrayList<Integer> sequence = new ArrayList<Integer> (Arrays.asList(1, 2, 1, 3, 1, 2, 1, 0));
+		
+		while (!this.currentGame.isOver() && t == solverThread)
+		{
+			for (int diskNum : sequence)
+			{
+				if (t != this.solverThread)
+				{
+					break;
+				}
+				
+				if (diskNum == 0 && !this.currentGame.isOver()) // Déplace un «gros» disque (diamètre >= 4)
+				{
+					Disk diskToMove = this.currentGame.peekTower(0);
+					
+					for(int i = 1; i <= 2; i++)
+					{
+						Disk otherDisk = this.currentGame.peekTower(i);
+						
+						if (otherDisk != null && (diskToMove == null || otherDisk.getDiameter() > diskToMove.getDiameter()))
+						{
+							if (findTowerWichCanReceiveDisk(otherDisk.getDiameter()) > -1)
+							{
+								diskToMove = otherDisk;
+							}
+						}
+					}
+					diskNum = diskToMove.getDiameter();
+				}
+
+				moveDiskNum(diskNum, (diskNum == 1) ? direction : 0);
+				sleep(500);
+			}
+		}
+	}
+	
+	// Trouve la tour dont le disque du dessus est le disque spécifié
+	private int findTowerWithDisk(int diskNum)
+	{
+		int towerNum = -1;
+		
+		// Trouve la tour dont le disque sur le dessus est le disque diskNum
+		for(int i = 0; i <= 2; i++)
+		{
+			Disk d = this.currentGame.peekTower(i);
+			if (d != null && d.getDiameter() == diskNum)
+			{
+				towerNum = i;
+				break;
+			}
+		}
+		
+		return towerNum;
+	}
+	
+	// Trouve la tour qui peut recevoir le disque spécifié
+	private int findTowerWichCanReceiveDisk(int diskNum)
+	{
+		int towerNum = -1;
+		
+		// Trouve la tour qui peut recevoir le disque
+		for(int i = 0; i <= 2; i++)
+		{
+			Disk d = this.currentGame.peekTower(i);
+			if (d == null || d.getDiameter() > diskNum)
+			{
+				towerNum = i;
+				break;
+			}
+		}
+		return towerNum;
+	}
+	
+	// Déplace le disque ayant le diamètre spécifié dans la direction spécifiée 
+	// Direction négative -> déplacement vers la gauche 
+	// Direction positive -> déplacement vers la droite 
+	// Direction nulle -> déplacement vers la tour qui peut recevoir le disque 
+	private void moveDiskNum(int diskNum, int direction)
+	{
+		int fromTower = findTowerWithDisk(diskNum);
+		
+		if (fromTower > -1)
+		{
+			int toTower = -1;
+
+			if (direction < 0) // Déplacement à gauche
+			{
+				toTower = fromTower == 0 ? 2 : fromTower - 1;  
+			}
+			else if (direction > 0) // Déplacement à droite
+			{
+				toTower = (fromTower + 1) % 3;
+			}
+			else // Direction non spécifiés
+			{
+				// Trouve la tour qui peut recevoir le disque
+				toTower = findTowerWichCanReceiveDisk(diskNum);
+			}
+			if (toTower > -1)
+			{
+				moveDisk(fromTower + 1, toTower + 1);
+			}
+		}
+	}
+	
+	// Suspend le thread pendant le nombre de millisecondes spécifié
+	private void sleep(int milliseconds)
+	{
+		try
+		{
+			Thread.sleep(milliseconds);
+		}
+		catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+	 */
+	@Override
+	public void keyPressed(KeyEvent e)
+	{
+		this.isShiftDown = e.isShiftDown();
+	}
+
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+	 */
+	@Override
+	public void keyReleased(KeyEvent e)
+	{
+		this.isShiftDown = e.isShiftDown();
+	}
+
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+	 */
+	@Override
+	public void keyTyped(KeyEvent e)
+	{
 	}
 	
 }

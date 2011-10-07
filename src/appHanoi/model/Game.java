@@ -84,6 +84,34 @@ public class Game
 	}
 	
 	/**
+	 * Retourne le nombre de disques utilisés dans la partie
+	 * 
+	 * @return le nombre de disques utilisés dans la partie
+	 */
+	public int getNbDisks()
+	{
+		return nbDisks;
+	}
+
+	/**
+	 * Retourne le disque sur le dessus de la tour spécifiée sans l'enlever.
+	 * Retourne null si la tour est vide ou si le numéro de la tour n'est pas valide.
+	 * Le numéro de la tour doit être compris dans l'intervalle [0, 2].
+	 * 
+	 * @param towerNum le numéro de la tour du dessus de laquelle on veut connaître le disque 
+	 * @return le disque sur le dessus de la tour spécifiée s'il y en a un et si la tour existe, sinon null.
+	 */
+	public Disk peekTower(int towerNum)
+	{
+		Disk d = null;
+		if (towerNum >= 0 && towerNum < Game.NB_TOWERS)
+		{
+			d = (Disk)towers[towerNum].peek();
+		}
+		return d;
+	}
+	
+	/**
 	 * Déplace un disque d'une tour à l'autre.
 	 * 
 	 * Le disque sur le dessus de la tour d'origine est déplacé sur la tour 

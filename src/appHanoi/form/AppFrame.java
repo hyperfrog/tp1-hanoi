@@ -18,11 +18,11 @@ import javax.swing.JFrame;
 
 public class AppFrame extends JFrame implements ComponentListener
 {
-	public static final Dimension INIT_SIZE = new Dimension(800, 450);
-	public static final int MIN_WIDTH = 320;
-	public static final int MIN_HEIGHT = 240;
+	private static final Dimension INIT_SIZE = new Dimension(800, 450);
+	private static final int MIN_WIDTH = 320;
+	private static final int MIN_HEIGHT = 240;
 	
-	public static final String INIT_TITLE = "Tours de Hanoi par Alexandre Tremblay et Christian Lesage";
+	private static final String INIT_TITLE = "Tours de Hanoi par Alexandre Tremblay et Christian Lesage";
 
 	private GameBoard gameBoard;
 	
@@ -45,6 +45,9 @@ public class AppFrame extends JFrame implements ComponentListener
 //		this.pack();
 		
 	}
+	/* (non-Javadoc)
+	 * @see java.awt.Window#paint(java.awt.Graphics)
+	 */
 	@Override
 	public void paint(Graphics g)
 	{
@@ -52,18 +55,25 @@ public class AppFrame extends JFrame implements ComponentListener
 		this.gameBoard.redraw();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.ComponentListener#componentHidden(java.awt.event.ComponentEvent)
+	 */
 	@Override
 	public void componentHidden(ComponentEvent e)
 	{
-		// TODO Auto-generated method stub
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.ComponentListener#componentMoved(java.awt.event.ComponentEvent)
+	 */
 	@Override
 	public void componentMoved(ComponentEvent e)
 	{
-		// TODO Auto-generated method stub
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.ComponentListener#componentResized(java.awt.event.ComponentEvent)
+	 */
 	@Override
 	public void componentResized(ComponentEvent e)
 	{
@@ -88,9 +98,11 @@ public class AppFrame extends JFrame implements ComponentListener
 		}
 	}
 
+	/** (non-Javadoc)
+	 * @see java.awt.event.ComponentListener#componentShown(java.awt.event.ComponentEvent)
+	 */
 	@Override
 	public void componentShown(ComponentEvent e)
 	{
-		// TODO Auto-generated method stub
 	}
 }
