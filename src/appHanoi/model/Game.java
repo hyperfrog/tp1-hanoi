@@ -54,7 +54,6 @@ public class Game
 			towers[0].push(new Disk(i, diskNumToDiskColor(i)));
 		}
 		
-//		this.replay(this.nbDisks); // TODO
 	}
 	
 	// Retourne une couleur choisie en fonction du numéro du disque 
@@ -93,24 +92,6 @@ public class Game
 		return nbDisks;
 	}
 
-	/**
-	 * Retourne le disque sur le dessus de la tour spécifiée sans l'enlever.
-	 * Retourne null si la tour est vide ou si le numéro de la tour n'est pas valide.
-	 * Le numéro de la tour doit être compris dans l'intervalle [0, 2].
-	 * 
-	 * @param towerNum le numéro de la tour du dessus de laquelle on veut connaître le disque 
-	 * @return le disque sur le dessus de la tour spécifiée s'il y en a un et si la tour existe, sinon null.
-	 */
-	public Disk peekTower(int towerNum)
-	{
-		Disk d = null;
-		if (towerNum >= 0 && towerNum < Game.NB_TOWERS)
-		{
-			d = (Disk)towers[towerNum].peek();
-		}
-		return d;
-	}
-	
 	/**
 	 * Déplace un disque d'une tour à l'autre.
 	 * 
@@ -159,7 +140,7 @@ public class Game
 	 * 
 	 * @param g le Graphics dans lequel les tours doivent être dessinées
 	 */
-	public void redraw(Graphics g) // TODO : Peut-être laisser à drawTowers ?
+	public void redraw(Graphics g)
 	{
 		if (g != null)
 		{
@@ -176,16 +157,6 @@ public class Game
 			}
 		}
 	}
-	
-//	/**
-//	 * 
-//	 * 
-//	 * @param nbDisks
-//	 */
-//	public void replay(int nbDisks)
-//	{
-//		
-//	}
 	
 	/**
 	 * Vérifie si la partie est terminée.

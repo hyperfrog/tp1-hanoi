@@ -1,6 +1,5 @@
 package appHanoi.form;
 
-import appHanoi.model.Disk;
 import appHanoi.model.Game;
 
 import javax.swing.JCheckBox;
@@ -17,11 +16,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 
 /**
  * À MODIFIER ET COMPLÉTER: code, javadoc, standards (static/final),
@@ -142,14 +136,14 @@ public class GameBoard extends JPanel implements ActionListener
 			{
 				this.message.setText("Partie terminée !");
 			}
+
+			this.redraw();
 		}
 		else
 		{
 			this.message.setText(String.format("Déplacement impossible de la tour %s vers la tour %s.", from , to));
 		}
 
-		this.redraw();
-		
 		return diskMoved;
 	}
 	
@@ -253,112 +247,38 @@ public class GameBoard extends JPanel implements ActionListener
 	// Résout une partie
 	private void solve(Thread t)
 	{
-		// Direction du déplacement du disque de diamètre 1
-		final int direction = (this.currentGame.getNbDisks() % 2 == 0) ? 1 : -1;
+		int smallDiskTowerNum = 1;
 		
-		// Séquence des disques à déplacer (identifiés par leur diamètre)
-		ArrayList<Integer> sequence = new ArrayList<Integer> (Arrays.asList(1, 2, 1, 3, 1, 2, 1, 0));
-		
-		while (!this.currentGame.isOver() && t == solverThread)
+		sleep(500);
+		for (int n = 1; !this.currentGame.isOver() && t == solverThread; n++)		
 		{
-			for (int diskNum : sequence)
+			if (n % 2 == 1) // Déplace le petit disque 
 			{
-				if (t != this.solverThread)
+				int toTower;
+
+				// Déplacement à gauche si nombre impair de disques
+				if (this.currentGame.getNbDisks() % 2 == 1) 
 				{
-					break;
+					toTower = smallDiskTowerNum == 1 ? 3 : smallDiskTowerNum - 1;  
 				}
+				else // Déplacement à droite
+				{
+					toTower = smallDiskTowerNum == 3 ? 1 : smallDiskTowerNum + 1;
+				}
+				moveDisk(smallDiskTowerNum, toTower);
+				smallDiskTowerNum = toTower;
+			}
+			else // Déplace un «gros» disque (diamètre > 1)
+			{
+				int tower1 = smallDiskTowerNum == 3 ? 1 : smallDiskTowerNum + 1;
+				int tower2 = smallDiskTowerNum == 1 ? 3 : smallDiskTowerNum - 1;
 				
-				if (diskNum == 0 && !this.currentGame.isOver()) // Déplace un «gros» disque (diamètre >= 4)
+				if (!moveDisk(tower1, tower2))
 				{
-					Disk diskToMove = null;
-					
-					for(int i = 0; i <= 2; i++)
-					{
-						Disk otherDisk = this.currentGame.peekTower(i);
-						
-						if (otherDisk != null && (diskToMove == null || otherDisk.getDiameter() > diskToMove.getDiameter()))
-						{
-							if (findTowerWichCanReceiveDisk(otherDisk.getDiameter()) > -1)
-							{
-								diskToMove = otherDisk;
-							}
-						}
-					}
-					diskNum = diskToMove.getDiameter();
+					moveDisk(tower2, tower1);
 				}
-
-				moveDiskNum(diskNum, (diskNum == 1) ? direction : 0);
-				sleep(500);
 			}
-		}
-	}
-	
-	// Trouve la tour dont le disque du dessus est le disque spécifié
-	private int findTowerWithDisk(int diskNum)
-	{
-		int towerNum = -1;
-		
-		// Trouve la tour dont le disque sur le dessus est le disque diskNum
-		for(int i = 0; i <= 2; i++)
-		{
-			Disk d = this.currentGame.peekTower(i);
-			if (d != null && d.getDiameter() == diskNum)
-			{
-				towerNum = i;
-				break;
-			}
-		}
-		
-		return towerNum;
-	}
-	
-	// Trouve la tour qui peut recevoir le disque spécifié
-	private int findTowerWichCanReceiveDisk(int diskNum)
-	{
-		int towerNum = -1;
-		
-		// Trouve la tour qui peut recevoir le disque
-		for(int i = 0; i <= 2; i++)
-		{
-			Disk d = this.currentGame.peekTower(i);
-			if (d == null || d.getDiameter() > diskNum)
-			{
-				towerNum = i;
-				break;
-			}
-		}
-		return towerNum;
-	}
-	
-	// Déplace le disque ayant le diamètre spécifié dans la direction spécifiée 
-	// Direction négative -> déplacement vers la gauche 
-	// Direction positive -> déplacement vers la droite 
-	// Direction nulle -> déplacement vers la tour qui peut recevoir le disque 
-	private void moveDiskNum(int diskNum, int direction)
-	{
-		int fromTower = findTowerWithDisk(diskNum);
-		
-		if (fromTower > -1)
-		{
-			int toTower = -1;
-
-			if (direction < 0) // Déplacement à gauche
-			{
-				toTower = fromTower == 0 ? 2 : fromTower - 1;  
-			}
-			else if (direction > 0) // Déplacement à droite
-			{
-				toTower = (fromTower + 1) % 3;
-			}
-			else // Direction non spécifiés
-			{
-				// Trouve la tour qui peut recevoir le disque
-				toTower = findTowerWichCanReceiveDisk(diskNum);
-			}
-			if (toTower > -1)
-			{
-				moveDisk(fromTower + 1, toTower + 1);
-			}
+			sleep(500);
 		}
 	}
 	
