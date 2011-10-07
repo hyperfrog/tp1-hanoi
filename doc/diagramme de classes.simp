@@ -678,7 +678,7 @@
       <associated-diagrams />
       <owned-items />
       <style class="default" />
-      <relation from="di237449427409736077" to="di183625964853496055">
+      <relation from="di183625964853496055" to="di237449427409736077">
         <start-role id="" name="" multiplicity="1" navigability="" association-type="association" visibility="private" />
         <end-role id="" name="" multiplicity="1" navigability="" association-type="composition" visibility="private" />
       </relation>
@@ -723,7 +723,7 @@
           </authors>
           <description />
           <creation-date>09/23/2011 09:24:32</creation-date>
-          <change-date>10/07/2011 14:16:31</change-date>
+          <change-date>10/07/2011 18:36:42</change-date>
           <revision-count>0</revision-count>
           <version />
         </meta>
@@ -733,148 +733,157 @@
 </documentation>
         <layer name="Default" visible="true" enabled="true" locked="false">
           <item id="di855803818871989209" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="1476" y1="257" x2="1595" y2="107">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="989" y1="-327" x2="897" y2="-465">
               <points>
-                <point x="1476" y="257" />
-                <point x="1595" y="107" />
+                <point x="989" y="-327" />
+                <point x="897" y="-465" />
               </points>
             </layout>
             <relation from="di767206065361629935" to="di688138813942401208" />
           </item>
           <item id="di227515328769844763" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="1672" y1="269" x2="1679" y2="107">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="803" y1="-320" x2="815" y2="-465">
               <points>
-                <point x="1672" y="269" />
-                <point x="1679" y="107" />
+                <point x="803" y="-320" />
+                <point x="815" y="-465" />
               </points>
             </layout>
             <relation from="di661639373696137859" to="di688138813942401208" />
           </item>
           <item id="di440703643698490250" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="1836" y1="353" x2="1759" y2="354">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="639" y1="-232" x2="704" y2="-233">
               <points>
-                <point x="1836" y="353" />
-                <point x="1759" y="354" />
+                <point x="639" y="-232" />
+                <point x="704" y="-233" />
               </points>
             </layout>
             <relation from="di531854966744974880" to="di661639373696137859" />
             <role-positions start-role="25,15" end-role="25,15" start-multiplicity="25,-15" end-multiplicity="25,-15" />
           </item>
           <item id="di897768975496410271" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="1268" ay="-173" awidth="756" aheight="669" x="1268" y="-173" width="756" height="669" />
+            <layout ax="426" ay="-776" awidth="756" aheight="669" x="426" y="-776" width="756" height="669" />
           </item>
           <item id="di688138813942401208" container="di897768975496410271" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="1561" ay="-116" awidth="245" aheight="223" x="1561" y="-116" width="245" height="223" />
+            <layout ax="702" ay="-688" awidth="245" aheight="223" x="702" y="-688" width="245" height="223" />
             <class />
           </item>
           <item id="di565324033484660392" container="di897768975496410271" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="1297" ay="206" awidth="229" aheight="249" x="1297" y="206" width="229" height="249" />
+            <layout ax="937" ay="-377" awidth="229" aheight="249" x="962" y="-393" width="229" height="249" />
           </item>
           <item id="di767206065361629935" container="di565324033484660392" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="1323" ay="257" awidth="170" aheight="170" x="1324" y="260" width="170" height="0" />
+            <layout ax="960" ay="-327" awidth="170" aheight="170" x="960" y="-327" width="170" height="0" />
             <class />
           </item>
           <item id="di699161422538403915" container="di897768975496410271" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="1554" ay="206" awidth="448" aheight="263" x="1554" y="206" width="448" height="0" />
+            <layout ax="460" ay="-387" awidth="448" aheight="263" x="485" y="-403" width="448" height="0" />
           </item>
           <item id="di661639373696137859" container="di699161422538403915" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="1576" ay="269" awidth="183" aheight="170" x="1576" y="269" width="183" height="0" />
+            <layout ax="704" ay="-320" awidth="183" aheight="170" x="704" y="-320" width="183" height="0" />
             <class />
           </item>
           <item id="di531854966744974880" container="di699161422538403915" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="1836" ay="268" awidth="150" aheight="170" x="1959" y="276" width="0" height="170" />
+            <layout ax="489" ay="-296" awidth="150" aheight="130" x="489" y="-296" width="0" height="130" />
             <class />
           </item>
           <item id="di365485101325211857" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="65" ay="-97" awidth="1135" aheight="598" x="65" y="-97" width="1135" height="598" />
+            <layout ax="61" ay="-91" awidth="1121" aheight="598" x="61" y="-91" width="1121" height="598" />
           </item>
           <item id="di925040645232202115" container="di365485101325211857" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="547" ay="-49" awidth="625" aheight="521" x="532" y="-155" width="625" height="521" />
+            <layout ax="537" ay="-39" awidth="625" aheight="519" x="534" y="-40" width="625" height="519" />
           </item>
           <item id="di346211912203185711" container="di365485101325211857" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="102" ay="-29" awidth="168" aheight="137" x="102" y="-29" width="168" height="137" />
+            <layout ax="98" ay="-23" awidth="168" aheight="137" x="102" y="-29" width="168" height="137" />
             <class />
           </item>
           <item id="di711628313583651250" container="di365485101325211857" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="86" ay="194" awidth="403" aheight="259" x="86" y="194" width="403" height="259" />
+            <layout ax="82" ay="200" awidth="403" aheight="259" x="86" y="194" width="403" height="259" />
           </item>
           <item id="di183625964853496055" container="di711628313583651250" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="313" ay="261" awidth="158" aheight="157" x="313" y="261" width="158" height="157" />
+            <layout ax="309" ay="267" awidth="158" aheight="157" x="313" y="261" width="158" height="157" />
             <class />
           </item>
           <item id="di237449427409736077" container="di711628313583651250" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="99" ay="263" awidth="171" aheight="155" x="99" y="263" width="171" height="155" />
+            <layout ax="95" ay="269" awidth="171" aheight="155" x="99" y="263" width="171" height="155" />
             <class />
           </item>
           <item id="di140578570167052464" container="di925040645232202115" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="930" ay="10" awidth="223" aheight="170" x="930" y="10" width="223" height="0" />
+            <layout ax="921" ay="268" awidth="223" aheight="170" x="931" y="258" width="223" height="0" />
             <class />
           </item>
           <item id="di883961475482793801" container="di925040645232202115" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="934" ay="254" awidth="215" aheight="170" x="934" y="159" width="215" height="0" />
+            <layout ax="927" ay="30" awidth="215" aheight="170" x="937" y="20" width="215" height="0" />
             <class />
           </item>
           <item id="di975531004501205257" container="di925040645232202115" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="entity">
-            <layout ax="564" ay="234" awidth="303" aheight="212" x="564" y="234" width="303" height="212" />
+            <layout ax="561" ay="15" awidth="303" aheight="212" x="571" y="5" width="303" height="212" />
             <class />
           </item>
           <item id="di620392031952072128" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="1149" y1="340" x2="1323" y2="341">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="1037" y1="30" x2="1042" y2="-157">
               <points>
-                <point x="1149" y="340" />
-                <point x="1323" y="341" />
+                <point x="1037" y="30" />
+                <point x="1042" y="-157" />
               </points>
             </layout>
             <relation from="di883961475482793801" to="di767206065361629935" />
           </item>
           <item id="di867096208908536491" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="1042" y1="254" x2="1042" y2="180">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="1033" y1="200" x2="1033" y2="268">
               <points>
-                <point x="1042" y="254" />
-                <point x="1042" y="180" />
+                <point x="1033" y="200" />
+                <point x="1033" y="268" />
               </points>
             </layout>
             <relation from="di883961475482793801" to="di140578570167052464" />
             <role-positions start-role="25,15" end-role="25,15" start-multiplicity="26,-15" end-multiplicity="23,-15" />
           </item>
           <item id="di286070708504022134" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="867" y1="340" x2="934" y2="339">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="864" y1="118" x2="927" y2="117">
               <points>
-                <point x="867" y="340" />
-                <point x="934" y="339" />
+                <point x="864" y="118" />
+                <point x="927" y="117" />
               </points>
             </layout>
             <relation from="di975531004501205257" to="di883961475482793801" />
             <role-positions start-role="25,15" end-role="25,15" start-multiplicity="25,-15" end-multiplicity="25,-15" />
           </item>
           <item id="di168743522340463089" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="11,-10" x1="471" y1="340" x2="564" y2="340">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="11,-10" x1="467" y1="291" x2="561" y2="226">
               <points>
-                <point x="471" y="340" />
-                <point x="564" y="340" />
+                <point x="467" y="291" />
+                <point x="561" y="226" />
               </points>
             </layout>
             <relation from="di183625964853496055" to="di975531004501205257" />
             <role-positions start-role="25,15" end-role="25,15" start-multiplicity="25,-15" end-multiplicity="25,-15" />
           </item>
           <item id="di180670361767670573" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="313" y1="340" x2="270" y2="340">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="309" y1="346" x2="266" y2="346">
               <points>
-                <point x="313" y="340" />
-                <point x="270" y="340" />
+                <point x="309" y="346" />
+                <point x="266" y="346" />
               </points>
             </layout>
             <relation from="di183625964853496055" to="di237449427409736077" />
             <role-positions start-role="25,15" end-role="25,15" start-multiplicity="25,-15" end-multiplicity="25,-15" />
           </item>
           <item id="di969948136447148851" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="35,-13" x1="186" y1="108" x2="185" y2="263">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="35,-13" x1="182" y1="114" x2="181" y2="269">
               <points>
-                <point x="186" y="108" />
-                <point x="185" y="263" />
+                <point x="182" y="114" />
+                <point x="181" y="269" />
               </points>
             </layout>
             <relation from="di346211912203185711" to="di237449427409736077" />
+          </item>
+          <item id="di337601696580562476" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" type="drawing-text">
+            <layout ax="76" ay="-918" awidth="300" aheight="274" x="76" y="-918" width="300" height="274" />
+            <drawing-text>
+              <text>TOURS DE HANOI
+
+par Alexandre Tremblay et Christian Lesage</text>
+            </drawing-text>
+            <style class="default" />
           </item>
         </layer>
       </diagram>
