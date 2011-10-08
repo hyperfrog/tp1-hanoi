@@ -109,15 +109,15 @@ public class AppFrame extends JFrame implements ComponentListener
 		// Vérifie si la largeur et la hauteur sont inférieures 
 		// à la valeur minimale permise pour chacune
 		boolean resize = false;
-		if (width < MIN_WIDTH)
+		if (width < AppFrame.MIN_WIDTH)
 		{
 			resize = true;
-			width = MIN_WIDTH;
+			width = AppFrame.MIN_WIDTH;
 		}
-		if (height < MIN_HEIGHT)
+		if (height < AppFrame.MIN_HEIGHT)
 		{
 			resize = true;
-			height = MIN_HEIGHT;
+			height = AppFrame.MIN_HEIGHT;
 		}
 		if (resize)
 		{

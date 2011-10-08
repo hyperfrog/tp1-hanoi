@@ -154,10 +154,10 @@ public class Game
 			g.fillRect(r.x, r.y, r.width, r.height);
 
 			// Détermine la largeur de la zone de chaque tour
-			float towerZoneWidth = (float)r.width / NB_TOWERS; 
+			float towerZoneWidth = (float)r.width / Game.NB_TOWERS; 
 
 			// Dessine chacune des tours
-			for (int i = 0; i < NB_TOWERS; i++)
+			for (int i = 0; i < Game.NB_TOWERS; i++)
 			{
 				// Crée un «sous graphics» pour la tour
 				Graphics g2 = g.create(Math.round(i * towerZoneWidth), r.y, Math.round(towerZoneWidth), r.height);
